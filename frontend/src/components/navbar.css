@@ -1,0 +1,33 @@
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #2a339c;
+  }
+  
+  .button {
+    float: left;
+    color: black;
+  }
+  
+  .button {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .button:hover {
+    background-color:  #2a339c;
+  }
+  ::-webkit-scrollbar {     
+    background-color: #fff;
+    width: .6em
+  }
+  
+  ::-webkit-scrollbar-thumb:window-inactive,
+  ::-webkit-scrollbar-thumb {
+    background:   #2a339c;
+}
