@@ -47,9 +47,9 @@ export default function Hasil() {
             key: 'a_NamaPerusahaan',
         },
         {
-            title: 'Nilai',
-            dataIndex: 'Nilai',
-            key: 'Nilai',
+            title: 'Kekayaan',
+            dataIndex: 'a_Kekayaan',
+            key: 'a_Kekayaan',
         },
         {
             title: 'No Telp',
@@ -65,6 +65,11 @@ export default function Hasil() {
             title: 'Email',
             dataIndex: 'a_Email',
             key: 'a_Email',
+        },
+        {
+            title: 'Nilai',
+            dataIndex: 'Nilai',
+            key: 'Nilai',
         },
         {
             title: 'operation',
