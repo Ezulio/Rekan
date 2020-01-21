@@ -55,7 +55,7 @@ export default function Landing(props) {
               window.location.replace('/')
             }
             catch (e) {
-             alert("error")
+             alert("error " + e)
             }
         setLoading(false);
     }
@@ -73,7 +73,7 @@ export default function Landing(props) {
                 <br />
                 <form style={{ textAlign: "center"}} onSubmit = { (e) => submit(e) }>
                 <Input placeholder="Nama Database" style={{ width: '20%', textAlign: "center"}}
-                 type="text" id = "tableName" onChange = {(e) => getTable(e)} required></Input>
+                 type="text" id = "tableName" onInput = {(e) => getTable(e)} required></Input>
                 <br />  
                 <br />
                 <button className="submit" style={{backgroundColor:"#2a339c", color:"white", width:"80px",height:"40px",borderRadius:"5px"}}

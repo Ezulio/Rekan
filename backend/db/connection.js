@@ -5,7 +5,7 @@ const knex = require('knex')({
         host : '127.0.0.1',
         user : 'root',
         password : 'yanka123',
-        database : 'Lelang'
+        database : 'lelang'
       }
 });
 

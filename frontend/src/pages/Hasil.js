@@ -27,8 +27,8 @@ export default function Hasil() {
      
         async function handleDelete(id) {
             try{
-                let deleteData = await Axios.post('http://localhost:5000/lelang/deleteData', {id: id});
-                console.log(id.data)
+                let deleteData = await Axios.post('http://localhost:5000/lelang/deleteData', {tableName:lelang.data, id: id});
+                console.log(id)
             }
             catch(e){
                 alert("Error : " + e);
@@ -57,12 +57,22 @@ export default function Hasil() {
             key: 'a_NoTelp',
         },
         {
+            title: 'PIC',
+            dataIndex: 'a_PIC',
+            key: 'a_PIC',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'a_Email',
+            key: 'a_Email',
+        },
+        {
             title: 'operation',
             dataIndex: 'operation',
-            render: (text, record) => {
+            render: (text, dataIndex) => {
                 return (
                     <>
-                        <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
+                        <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(dataIndex.id)}>
                             <a>Delete</a>
                         </Popconfirm>
                     </>
