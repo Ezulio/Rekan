@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Form, Button, Popconfirm, Icon, Input, Radio } from 'antd';
+import { Form, Button, Popconfirm, Icon, Input, Radio, Collapse } from 'antd';
 import Axios from 'axios';
 import UserContext from '../util/UserContext';
 import renderEmpty from 'antd/lib/config-provider/renderEmpty';
@@ -7,7 +7,26 @@ import renderEmpty from 'antd/lib/config-provider/renderEmpty';
 export default function Hitung() {
 
     let [loading, setLoading] = useState(false);
+    let [form, setForm] = useState([]);
     const lelang = useContext(UserContext);
+
+    useEffect( () => {
+        async function getData(){
+            try{
+                let data = await Axios.get();
+
+            }
+            catch(e){
+                console.log(e);
+            }
+        }
+        getData();
+    },[])
+
+    const question = (
+        <Form>
+        </Form>
+    )
 
     async function submit(e) {
         setLoading(true);
@@ -33,7 +52,9 @@ export default function Hitung() {
                     <Form.Item label="Nama Perusahaan">
                         <Input style={{ width: '20%' }} />
                     </Form.Item>
-
+                    {/* cek kategori (if kategori == 1)
+                    cek jenis jawaban (if jawaban == disertakan)
+                    else jawaban */}
                 </div>
                 <div>
                     <h3 style={{ textAlign: 'center' }}>2. Peminatan Tower Power </h3>

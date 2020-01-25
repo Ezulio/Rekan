@@ -1,24 +1,50 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Input } from 'antd';
+import { Input, Dropdown, Menu, Icon  } from 'antd';
+import UserContext from '../util/UserContext';
 import Axios from 'axios';
 
-export default function Perusahaan() {
+export default function Perusahaan(props) {
 
     let [loading,setLoading] = useState(false);
-    let [tableName, setTableName] =  useState({});
-    let [allTable,setAllTable]=useState([]);
+    let [company, setCompany] =  useState({});
+    let [allCompany,setAllCompany]=useState([]);
+    const lelang = useContext(UserContext);
 
+    useEffect( ()=>{
+        async function getData(){
+            try{
+                let data = await Axios.get('', lelang.data)
+                setAllCompany();
+            }
+            catch(e){
+                alert("error " + e)
+            }
+        }
+    })
 
-    function getTable(e) {
+    const menu = (
+        <Menu>
+        {allCompany.map((data,index)=>
+            (
+            <Menu.Item key={index} onClick={()=>props.getData(data.COMPANY_NAME)}>
+                <a >{data.COMPANY_NAME}</a>
+            </Menu.Item>
+            )
+
+         )}   
+        </Menu>
+    )
+    
+    function getCompany(e) {
         let data = e.target.value;
-        setTableName({ tableName: data });
+        setCompany({ companyName: data });
     }
 
     async function submit(e) {
         setLoading(true);
         e.preventDefault();
             try {
-              const token = await Axios.post('http://localhost:5000/lelang/newtable', tableName);
+              const token = await Axios.post('http://localhost:5000/lelang/newtable', lelang.data, company);
               localStorage.setItem('token',token.data.token);
               window.location.replace('/')
             }
@@ -29,17 +55,25 @@ export default function Perusahaan() {
     }
 
     return (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", marginTop: '15%' }}>
             <h1>Perusahaan</h1>
-            <h3>Untuk membuat profil perusahaan baru</h3>
+        <div style = {{ textAlign: "center" }}>
+        <Dropdown overlay={menu} trigger={['click']}>
+                    <a className="ant-dropdown-link" href="#">
+                        Pilih Perusahaan <Icon type="down" />
+                    </a>
+        </Dropdown>,
+        <br />
+        <br />
         <form style={{ textAlign: "center" }} onSubmit={(e) => submit(e)}>
-            <Input placeholder="Nama Database" style={{ width: '20%', textAlign: "center" }}
-                type="text" id="tableName" onInput={(e) => getTable(e)} required></Input>
+            <Input placeholder="Nama Perusahaan" style={{ width: '20%', textAlign: "center" }}
+                type="text" id="companyName" onInput={(e) => getCompany(e)} required></Input>
             <br />
             <br />
             <button className="submit" style={{ backgroundColor: "#2a339c", color: "white", width: "80px", height: "40px", borderRadius: "5px" }}
                 type={"submit"}>{loading ? "Loading.." : "Submit"}</button>
         </form>
+        </div>
         </div>
     )
 }

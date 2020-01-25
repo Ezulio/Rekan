@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Landing from './pages/Landing';
 import Perusahaan from './pages/Perusahaan';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 import Hitung from './pages/Hitung';
 import Hasil from './pages/Hasil';
 import FAQ from './pages/FAQ';
