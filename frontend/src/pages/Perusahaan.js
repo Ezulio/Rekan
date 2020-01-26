@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Input, Dropdown, Menu, Icon  } from 'antd';
-import UserContext from '../util/UserContext';
+import CompanyContext from '../util/UserContext';
 import Axios from 'axios';
 
 export default function Perusahaan(props) {
@@ -8,7 +8,7 @@ export default function Perusahaan(props) {
     let [loading,setLoading] = useState(false);
     let [company, setCompany] =  useState({});
     let [allCompany,setAllCompany]=useState([]);
-    const lelang = useContext(UserContext);
+    const lelang = useContext(CompanyContext);
 
     useEffect( ()=>{
         async function getData(){
@@ -20,7 +20,8 @@ export default function Perusahaan(props) {
                 alert("error " + e)
             }
         }
-    })
+        getData();
+    },[])
 
     const menu = (
         <Menu>

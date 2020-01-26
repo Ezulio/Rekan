@@ -61,6 +61,116 @@ router.post('/deleteData', async (req, res, next) => {
     }
 })
 
+
+router.post('/insert_company', async (req,res,next)=>{
+    const perusahaan = req.body.nama_perusahaan;
+
+    try{
+        const coba = await knex("company").insert({
+            nama_perusahaan : perusahaan
+        })
+        res.json({
+            "message":"Insert Company Berhasil",
+            "data": coba
+        })
+    }catch(e){
+        const error = new Error ("Terjadi Kesalahan "+e);
+        next(error)
+    }
+})
+
+router.post('/insert_answer', async (req,res,next) => {
+    const id_company = req.body.id_company;
+    const id_variablepoint = req.body.id_variablepoint;
+    const answer = req.body.answer;
+    const keterangan = req.body.keterangan;
+
+    try{
+        const tambah = await knex("answer").insert({
+            id_company: id_company,
+            id_variablepoint : id_variablepoint,
+            answer : answer,
+            keterangan: keterangan
+        })
+        res.json({
+            "message" : "Insert Berhasil",
+            "data": tambah
+        })
+    }catch(e){
+        const error = new Error("Kesalahan Database "+e);
+        next(error);
+    }
+});
+
+
+router.get('/getquestion', async (req,res,next)=>{
+    try{
+        let pertanyaan = await knex('variablepoint').join('question', 'variablepoint.id_question', '=', 'question.id_question').join('parameter_question', 'question.id_parameter_question', '=', 'parameter_question.id_parameter_question').select('parameter_question.parameter_question', 'question.type_question','question.question', 'variablepoint.variable','variablepoint.point' );
+        res.json({
+            "question_and_variable": pertanyaan
+        })
+    }catch(e){
+        const error = new Error ('Terjadi Error: '+e);
+        next(error);
+    }
+});
+
+router.post('/getquestion_parameter', async (req,res,next)=>{
+    const id_parameter_question = req.body.id_parameter_question;
+    try{
+        let pertanyaan = await knex('variablepoint').join('question', 'variablepoint.id_question', '=', 'question.id_question').join('parameter_question', 'question.id_parameter_question', '=', 'parameter_question.id_parameter_question').select('parameter_question.parameter_question', 'question.type_question','question.question', 'variablepoint.variable','variablepoint.point').where('parameter_question.id_parameter_question',id_parameter_question);
+        res.json({
+            "question_and_variable": pertanyaan
+        })
+    }catch(e){
+        const error = new Error ('Terjadi Error: '+e);
+        next(error);
+    }
+});
+
+router.get('/getcompany', async (req,res,next)=>{
+    try{
+        let profil = await knex.select().table('company');
+        res.json({
+            "list_company":profil
+        })
+    }
+    catch(e){
+        const error = new Error ('Terjadi Error: '+e);
+        next(error);
+    }
+});
+
+router.post('/getanswer', async(req,res,next)=>{
+    const id_company = req.body.id_company;
+    
+    try{
+        let query = 'SELECT company.nama_perusahaan, parameter_question.parameter_question, question.question, answer.answer, variablepoint.point '+ 
+        'FROM answer JOIN company ON answer.id_company = company.id_company'+
+        ' JOIN variablepoint ON answer.id_variablepoint = variablepoint.id_variablepoint'+
+        ' JOIN question ON variablepoint.id_question = question.id_question'+
+        ' JOIN parameter_question ON question.id_parameter_question = parameter_question.id_parameter_question'+
+        ' WHERE answer.id_company = '+id_company+''
+        let jawaban = await knex.raw(query);  
+
+        console.log(jawaban[0]);
+        res.json({
+            "data" : jawaban[0]
+        })
+
+    }catch(e){
+        const error = new Error("Terjadi ERROR: "+e)
+        next(error);
+    }
+})
+
+
+module.exports = router;
+
+
+
+
+
 // function hitungKekayaan(kaya, f_Plafon){
 
 // }
@@ -141,52 +251,3 @@ router.post('/deleteData', async (req, res, next) => {
 //         next(err_input);
 //     }
 // })
-
-router.post('/insert_answer', async (req,res,next) => {
-    const id_company = req.body.id_company;
-    const id_variablepoint = req.body.id_variablepoint;
-    const answer = req.body.answer;
-
-    try{
-        const tambah = await knex("answer").insert({
-            id_company: id_company,
-            id_variablepoint : id_variablepoint,
-            answer : answer
-        })
-        res.json({
-            "message" : "Insert Berhasil",
-            "data": tambah
-        })
-    }catch(e){
-        const error = new Error("Kesalahan Database "+e);
-        next(error);
-    }
-});
-
-
-
-router.get('/getquestion', async (req,res,next)=>{
-    try{
-        let pertanyaan = await knex('variablepoint').join('question', 'variablepoint.id_question', '=', 'question.id_question').join('parameter_question', 'question.id_parameter_question', '=', 'parameter_question.id_parameter_question').select('parameter_question.parameter_question', 'question.question', 'question.type_question', 'variablepoint.variable','variablepoint.point' );
-        res.json({
-            "question_and_variable": pertanyaan
-        })
-    }catch(e){
-        const error = new Error ('Terjadi Error: '+e);
-        next(error);
-    }
-});
-
-router.get('/getcompany', async (req,res,next)=>{
-    try{
-        let profil = await knex.select().table('company');
-        res.json({
-            "list_company":profil
-        })
-    }
-    catch(e){
-        const error = new Error ('Terjadi Error: '+e);
-        next(error);
-    }
-})
-module.exports = router;

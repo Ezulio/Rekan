@@ -11,7 +11,7 @@ export default function Hasil() {
             useEffect( () => {
                 async function getData(){
                     try{
-                        let data = await Axios.post('http://localhost:5000/lelang/getTable', {tableName:lelang.data});
+                        let data = await Axios.post('http://localhost:5000/rfi/getTable', {tableName:table.data});
                         // console.log(data.id);
                         setDataSource(data.data.table);
                     }
@@ -27,7 +27,7 @@ export default function Hasil() {
      
         async function handleDelete(id) {
             try{
-                let deleteData = await Axios.post('http://localhost:5000/lelang/deleteData', {tableName:lelang.data, id: id});
+                let deleteData = await Axios.post('http://localhost:5000/rfi/deleteData', {tableName:table.data, id: id});
                 console.log(id)
             }
             catch(e){
@@ -86,11 +86,11 @@ export default function Hasil() {
             }
         },
     ];
-    const lelang = useContext(UserContext);
+    const table = useContext(UserContext);
 
     return (
         <div style={{ textAlign: "center" }}>
-            <h1>Hasil {lelang.data}</h1>
+            <h1>Hasil {table.data}</h1>
             <Table rowKey={record => record.id} bordered dataSource={dataSource} columns={columns} />
         </div>
     )
