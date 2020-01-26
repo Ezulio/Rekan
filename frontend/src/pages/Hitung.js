@@ -61,6 +61,16 @@ export default function Hitung() {
 }
 
  
+const RenderButton = ()=>{
+        
+    return(
+        <Button onPress={(submit)}>
+        Simpan
+        </Button>
+    )
+
+
+}
 
     async function submit(e) {
         setLoading(true);
@@ -115,7 +125,7 @@ export default function Hitung() {
                     <br />
                 </div>
             </Form> */}
-            <button style={{textAlign:"center"}} onClick={()=>console.log(answer)}>Submit</button>
+            <RenderButton/>
         </Form>
         </div>
     );
