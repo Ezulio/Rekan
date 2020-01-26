@@ -10,7 +10,7 @@ export default function InputOnly (props){
     },[]);
     return (
         <div>
-        <p>{inputOnly.question}</p>
+        <p style={{fontWeight:"bold"}}>{inputOnly.question}</p>
             <Input style={{ width: '20%' }} onChange={(data)=>setTemp(data.target.value)} onBlur={()=>props.onAnswer(temp)}></Input>
             <br/>
             <br/>

@@ -50,8 +50,8 @@ export default function Hitung() {
                    return(<InputOnly data={data} onAnswer={onAnswer}/>)
                 case "lampiran":
                    return(<Lampiran data={data} onAnswer={onAnswer}/>)
-                // case "checkbox":
-                //    return(<CustomCheckBox data={data} onAnswer={onAnswer}/>)
+                case "checkbox":
+                   return(<CustomCheckBox data={data} onAnswer={onAnswer}/>)
            }
         })
      }

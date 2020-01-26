@@ -5,35 +5,21 @@ import { Checkbox } from 'antd';
 export default function CustomCheckBox(props){
   
     const CheckboxGroup = Checkbox.Group;
-    let [check, setCheck] = [{}];
+    let [check, setCheck] = useState({});
     useEffect(()=>{
         setCheck(props.data);
     },[check]);
-    
-    const optionChekbox = [
-        {
-
-        }
-      ];
-
-    // onChangeCheckbox = checkedList => {
-    //     this.setState({
-    //       checkedList,
-    //       indeterminate: !!checkedList.length && checkedList.length < plainOptions.length,
-    //       checkAll: checkedList.length === plainOptions.length,
-    //     });
-    //   };
 
         return (
             <div>
-                <br />
-                <p>{check.question}</p>
+                <p style={{fontWeight:"bold"}}>{check.question}</p>
                 <CheckboxGroup
-                    options={optionChekbox}
+                    options={check.variable}
                     onChange={(data)=>props.onAnswer(data.target.value)}
-                    value={optionChekbox.question}
-                   
+                    value={check.point}
                 />
+                <br/>
+                <br/>
             </div>
         );
 }

@@ -7,19 +7,17 @@ export default function Lampiran(props) {
     useEffect(() => {
         setLampiran(props.data);
     }, [lampiran]);
- const optionlampiran = [
-    { label: 'Apple', value: 'Apple' },
-    { label: 'Pear', value: 'Pear' },
-    { label: 'Orange', value: 'Orange' },
-];
-
 
 return (
     <div>
-    <p>{lampiran.question}</p>
+    <p style={{fontWeight:"bold"}}>{lampiran.question}</p>
         <Radio.Group
+            options = {lampiran.variable}
             onChange={(data)=>props.onAnswer(data.target.value)}
+            value={lampiran.point}
         />
+        <br/>
+        <br/>
     </div>
 )
 }

@@ -10,11 +10,13 @@ export default function CustomInput (props){
 
     return (
         <div>
-        <p>{radioInput.question}</p>
+        <p style={{fontWeight:"bold"}}>{radioInput.question}</p>
             <Radio.Group 
-            //  options={(data)=>props.}
-             onChange={(data)=>props.onAnswer(data.target.value)}>
+             options = {radioInput.variable}
+             onChange = {(data)=>props.onAnswer(data.target.value)}
+             value={radioInput.point}>
             </Radio.Group>
+            <br/>
             <br/>
             <Input.TextArea style={{ width: '20%' }} onChange={(data)=>props.onAnswer(data.target.value)}></Input.TextArea>
             <br/>
