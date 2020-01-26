@@ -12,8 +12,9 @@ export default function Hitung() {
 
     let [loading, setLoading] = useState(false);
     let [form, setForm] = useState([]);
-    let [soal,setSoal]=useState([]);
-    let [test,setTest]=useState([1,2,3,4,5]);
+    let [soal,setSoal] = useState([]);
+    let [pilihan, setPilihan] = useState([]);
+    let [test,setTest] = useState([1,2,3,4,5]);
     let [answer, setAnswer] = useState('');
 
     const company = useContext(CompanyContext);
@@ -22,8 +23,8 @@ export default function Hitung() {
         async function getData(){
             try{
                 let data = await Axios.get('http://localhost:5000/lelang/getquestion');
-                // console.log(data)
-                setSoal(data.data.question_and_variable);
+                console.log(data.data.pertanyaan)
+                setSoal(data.data.pertanyaan);
             }
             catch(e){
                 console.log(e);
@@ -33,6 +34,7 @@ export default function Hitung() {
     },[]);
 
     function onAnswer(data){
+        console.log(data)
        setAnswer(data);
     }
 
@@ -42,12 +44,12 @@ export default function Hitung() {
      if (soal.length!=0){
        return soal.map(data=>{
            switch(data.type_question){
-            // case "input":
-            //     return(<CustomInput data={data} onAnswer={onAnswer}/>)
+            case "input":
+                return(<CustomInput data={data} onAnswer={onAnswer}/>)
                 case "input_only":
                    return(<InputOnly data={data} onAnswer={onAnswer}/>)
-                // case "lampiran":
-                //    return(<Lampiran data={data} onAnswer={onAnswer}/>)
+                case "lampiran":
+                   return(<Lampiran data={data} onAnswer={onAnswer}/>)
                 // case "checkbox":
                 //    return(<CustomCheckBox data={data} onAnswer={onAnswer}/>)
            }
@@ -68,12 +70,14 @@ export default function Hitung() {
     }
 
     return (
-        <div>
-      <RenderQuestion/>
+        <div style={{padding:'10px'}}>
+        <Form>
+        <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.data}</h1>
+        <RenderQuestion/>
 
     
             {/* <Form style={{ textAlign: "left", marginLeft: 40 }} onSubmit={(e) => submit(e)}>
-                <h1 style={{ textAlign: 'center' }}>Input Penilaian {lelang.data}</h1>
+                
                 <div>
                     <h3 style={{ textAlign: 'center' }}>1. Administrasi </h3>
                     { cek kategori (if kategori == 1)
@@ -111,7 +115,8 @@ export default function Hitung() {
                     <br />
                 </div>
             </Form> */}
-            <button onClick={()=>console.log(answer)}>Submit</button>
+            <button style={{textAlign:"center"}} onClick={()=>console.log(answer)}>Submit</button>
+        </Form>
         </div>
     );
 }

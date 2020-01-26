@@ -16,7 +16,9 @@ export default function CustomInput (props){
              onChange={(data)=>props.onAnswer(data.target.value)}>
             </Radio.Group>
             <br/>
-            <Input.TextArea onChange={(data)=>props.onAnswer(data.target.value)}></Input.TextArea>
+            <Input.TextArea style={{ width: '20%' }} onChange={(data)=>props.onAnswer(data.target.value)}></Input.TextArea>
+            <br/>
+            <br/>
         </div>
     )
 }

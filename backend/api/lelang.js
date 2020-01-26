@@ -135,10 +135,13 @@ router.get("/getquestion", async (req, res, next) => {
           newQuesVar.push(variable)
           const newVarPoint = currentQuestion ? currentQuestion.point : []
           newVarPoint.push(point)
-          ques.set(id_question, {parameter_question, id_question, type_question, question,variable: newQuesVar,point:newVarPoint })
+          ques.set(id_question, {parameter_question, id_question, type_question, question,variable: newQuesVar,point:newVarPoint})
           return ques
         }, new Map()).values()]
       }
+      res.json({
+        pertanyaan: parseData(pertanyaan)
+      });
       
 
   } catch (e) {
