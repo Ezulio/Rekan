@@ -72,10 +72,18 @@ const RenderButton = ()=>{
 
 }
 
+//insert_answer
+
     async function submit(e) {
         setLoading(true);
         e.preventDefault();
+            try {
+              const token = await Axios.post('http://localhost:5000/lelang/insert_answer', company.data, );
 
+            }
+            catch (e) {
+             alert("error " + e)
+            }
         setLoading(false);
     }
 
