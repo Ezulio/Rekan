@@ -88,9 +88,10 @@ const RenderButton = ()=>{
     }
 
     return (
-        <div style={{padding:'10px'}}>
-        <Form>
+        <div>
         <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.data}</h1>
+        <div style={{padding:'30px'}}>
+        <Form>
         <RenderQuestion/>
 
     
@@ -135,6 +136,7 @@ const RenderButton = ()=>{
             </Form> */}
             <RenderButton/>
         </Form>
+        </div>
         </div>
     );
 }

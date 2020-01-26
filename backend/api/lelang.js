@@ -125,20 +125,24 @@ router.get("/getquestion", async (req, res, next) => {
         "question.id_question",
         "question.type_question",
         "question.question",
+        "variablepoint.id_variablepoint",
         "variablepoint.variable",
         "variablepoint.point"
       );
     const parseData = data => {
-        return [...data.reduce((ques, {parameter_question, id_question,type_question,question,variable,point }) => {
+        return [...data.reduce((ques, {parameter_question, id_question,type_question,question,id_variablepoint,variable,point }) => {
           const currentQuestion = ques.get(id_question)
+          const newVarValue = currentQuestion ? currentQuestion.id_variablepoint : []
+          newVarValue.push(id_variablepoint)
           const newQuesVar = currentQuestion ? currentQuestion.variable : []
           newQuesVar.push(variable)
           const newVarPoint = currentQuestion ? currentQuestion.point : []
           newVarPoint.push(point)
-          ques.set(id_question, {parameter_question, id_question, type_question, question,variable: newQuesVar,point:newVarPoint})
+          ques.set(id_question, {parameter_question, id_question, type_question, question,id_variablepoint:newVarValue,variable: newQuesVar,point:newVarPoint })
           return ques
         }, new Map()).values()]
       }
+
       res.json({
         pertanyaan: parseData(pertanyaan)
       });
