@@ -45,7 +45,7 @@ export default function Perusahaan(props) {
         setLoading(true);
         e.preventDefault();
             try {
-              const token = await Axios.post('http://localhost:5000/lelang/newtable', lelang.data, company);
+              const token = await Axios.post('http://localhost:5000/lelang/insert_company', lelang.data, company);
               localStorage.setItem('token',token.data.token);
               window.location.replace('/')
             }
