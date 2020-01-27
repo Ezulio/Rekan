@@ -38,15 +38,12 @@ router.post("/gettable", async (req, res, next) => {
 router.post("/newtable", async (req, res, next) => {
   const tablename = req.body.tableName;
   try {
+       knex.raw("CREATE TABLE " + tablename + " LIKE answer")
 
-    await knex.transaction (function(trx){
-       trx.raw("CREATE TABLE " + tablename + " LIKE answer");
-
-    }).then(trx.commit)
-
-
-
-
+    // await knex.transaction (function(trx){
+    //    trx.raw("CREATE TABLE " + tablename + " LIKE answer").then()
+    // }).then(function(hasil){
+    // }).then(trx.commit)
     res.json({
       message: "Table Berhasil Dibuat"
     });
