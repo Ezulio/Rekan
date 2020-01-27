@@ -31,10 +31,10 @@ export default function Hitung() {
         }
         getData();
     },[]);
-
+    
     function onAnswer(data){
+        // setAnswer(data);
         console.log(data)
-        setAnswer(data);
     }
 
   
@@ -59,7 +59,6 @@ export default function Hitung() {
      }
 }
 
- 
 const RenderButton = ()=>{
         
     return(

@@ -12,12 +12,14 @@ export default function CustomCheckBox(props){
 
         return (
             <div>
+            <p style={{fontWeight:"bold"}}>{check.question}</p>
             <Form.Item required>
-                <p style={{fontWeight:"bold"}}>{check.question}</p>
                 <CheckboxGroup
                     options={check.variable}
                     onChange={(data)=>props.onAnswer(data.target.value)}
-                />
+                    // onClick = {(data) => props.onAnswer(data.check.variable)}
+                >
+                </CheckboxGroup>
                 <br/>
             </Form.Item>
             </div>

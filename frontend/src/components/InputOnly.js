@@ -10,8 +10,8 @@ export default function InputOnly (props){
     },[]);
     return (
         <div>
-        <Form.Item required>
         <p style={{fontWeight:"bold"}}>{inputOnly.question}</p>
+        <Form.Item required>
             <Input style={{ width: '20%' }}
              onChange={(data)=> props.onAnswer(data.target.value)}
               onBlur={()=>props.onAnswer(temp)}
