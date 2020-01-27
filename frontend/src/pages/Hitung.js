@@ -93,47 +93,6 @@ const RenderButton = ()=>{
         <div style={{padding:'30px'}}>
         <Form>
         <RenderQuestion/>
-
-    
-            {/* <Form style={{ textAlign: "left", marginLeft: 40 }} onSubmit={(e) => submit(e)}>
-                
-                <div>
-                    <h3 style={{ textAlign: 'center' }}>1. Administrasi </h3>
-                    { cek kategori (if kategori == 1)
-                    cek jenis jawaban (if jawaban == disertakan)
-                    { else jawaban }
-                </div>
-                <div>
-                    <h3 style={{ textAlign: 'center' }}>2. Peminatan Tower Power </h3>
-                </div>
-
-                <div>
-                    <h3 style={{ textAlign: 'center' }}>3. Financial Capability</h3>
-                </div>
-
-                <div>
-                    <h3 style={{ textAlign: 'center' }}>4. Pengalaman</h3>
-                </div>
-                <div>
-                    <h3 style={{ textAlign: 'center' }}>5. Team Availability</h3>
-                    
-                </div>
-                <div>
-                    <h3 style={{ textAlign: 'center' }}>6. Stock Material dan Logistik</h3>
-
-                </div>
-                <div>
-                    <h3 style={{ textAlign: 'center' }}>7. Peralatan yang Digunakan</h3>
-
-                </div>
-                <br />
-                <div style={{ textAlign: "center" }}>
-                    <button className="submit" style={{ backgroundColor: "#2a339c", color: "white", width: "80px", height: "40px", borderRadius: "5px" }}
-                        type={"submit"}>{loading ? "Loading.." : "Input"}</button>
-                    <br />
-                    <br />
-                </div>
-            </Form> */}
             <RenderButton/>
         </Form>
         </div>

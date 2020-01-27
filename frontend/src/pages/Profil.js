@@ -9,7 +9,7 @@ export default function Profil(){
     
     return(
         <div style={{textAlign:"center"}}>
-        <h1>Profil Perusahaan</h1>
+        <h1>Profil {company.data} </h1>
         </div>
     )
 }

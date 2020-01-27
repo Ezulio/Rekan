@@ -10,7 +10,7 @@ router.get("/getdb", async (req, res, next) => {
     let getdb = await knex
       .select("TABLE_NAME")
       .from("INFORMATION_SCHEMA.TABLES")
-      .where("TABLE_SCHEMA", "=", "lelang");
+      .where("TABLE_SCHEMA", "=", "rfi");
     res.json({
       db: getdb
     });

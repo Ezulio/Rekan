@@ -13,8 +13,8 @@ export default function Perusahaan(props) {
     useEffect( ()=>{
         async function getData(){
             try{
-                let data = await Axios.get('', lelang.data)
-                setAllCompany();
+                let data = await Axios.get('http://localhost:5000/lelang/getcompany')
+                setAllCompany(data.data.list_company);
             }
             catch(e){
                 alert("error " + e)
@@ -27,8 +27,8 @@ export default function Perusahaan(props) {
         <Menu>
         {allCompany.map((data,index)=>
             (
-            <Menu.Item key={index} onClick={()=>props.getData(data.COMPANY_NAME)}>
-                <a >{data.COMPANY_NAME}</a>
+            <Menu.Item key={index} onClick={()=>props.getData(data.nama_perusahaan)}>
+                <a >{data.nama_perusahaan}</a>
             </Menu.Item>
             )
 
