@@ -38,7 +38,14 @@ router.post("/gettable", async (req, res, next) => {
 router.post("/newtable", async (req, res, next) => {
   const tablename = req.body.tableName;
   try {
-    await knex.raw("CREATE TABLE " + tablename + " LIKE lelang_example");
+
+    await knex.transaction (function(trx){
+       trx.raw("CREATE TABLE " + tablename + " LIKE answer");
+
+    }).then(trx.commit)
+
+
+
 
     res.json({
       message: "Table Berhasil Dibuat"
@@ -142,10 +149,10 @@ router.get("/getquestion", async (req, res, next) => {
           return ques
         }, new Map()).values()]
       }
-
+      
       res.json({
-        pertanyaan: parseData(pertanyaan)
-      });
+        "pertanyaan": parseData(pertanyaan)
+      })
       
 
   } catch (e) {
