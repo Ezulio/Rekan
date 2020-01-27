@@ -1,6 +1,6 @@
 
 import React, { useContext, useState, useEffect } from 'react';
-import { Checkbox } from 'antd';
+import { Checkbox, Form } from 'antd';
 
 export default function CustomCheckBox(props){
   
@@ -12,14 +12,14 @@ export default function CustomCheckBox(props){
 
         return (
             <div>
+            <Form.Item required>
                 <p style={{fontWeight:"bold"}}>{check.question}</p>
                 <CheckboxGroup
                     options={check.variable}
                     onChange={(data)=>props.onAnswer(data.target.value)}
-                    value={check.point}
                 />
                 <br/>
-                <br/>
+            </Form.Item>
             </div>
         );
 }

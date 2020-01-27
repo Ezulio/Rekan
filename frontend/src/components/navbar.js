@@ -14,7 +14,7 @@ export default function Navbar() {
                 <li className="button"><h4><Link to='/'>Rekan</Link></h4></li>
                 <li className="button"><Link to='/Perusahaan'>Perusahaan</Link></li>
                 <li className="button"><Link to='/Profil'>Profile</Link></li>
-                <li className="button"><Link to='/Hitung'>Hitung</Link></li>
+                <li className="button"><Link to='/Hitung'>Input</Link></li>
                 <li className="button"><Link to='/Hasil'>Hasil</Link></li>
                 <li className="button"><Link to='/FAQ'>FAQ</Link></li>
             </ul>

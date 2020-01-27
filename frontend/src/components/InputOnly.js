@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import {  Input, } from 'antd';
+import {  Input, Form } from 'antd';
 
 
 export default function InputOnly (props){
@@ -10,10 +10,15 @@ export default function InputOnly (props){
     },[]);
     return (
         <div>
+        <Form.Item required>
         <p style={{fontWeight:"bold"}}>{inputOnly.question}</p>
-            <Input style={{ width: '20%' }} onChange={(data)=>setTemp(data.target.value)} onBlur={()=>props.onAnswer(temp)}></Input>
+            <Input style={{ width: '20%' }}
+             onChange={(data)=> props.onAnswer(data.target.value)}
+              onBlur={()=>props.onAnswer(temp)}
+            >
+              </Input>
             <br/>
-            <br/>
+            </Form.Item>
         </div>
     )
 }

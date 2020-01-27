@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Radio } from 'antd';
+import { Radio, Form } from 'antd';
 
 
 export default function Lampiran(props) {
@@ -10,14 +10,14 @@ export default function Lampiran(props) {
 
 return (
     <div>
+    <Form.Item required>
     <p style={{fontWeight:"bold"}}>{lampiran.question}</p>
         <Radio.Group
             options = {lampiran.variable}
-            onChange={(data)=>props.onAnswer(data.target.value)}
-            value={lampiran.point}
+            onChange={(data)=> props.onAnswer(data.target.value)}
         />
         <br/>
-        <br/>
+            </Form.Item>
     </div>
 )
 }

@@ -34,7 +34,7 @@ export default function Hitung() {
 
     function onAnswer(data){
         console.log(data)
-       setAnswer(data);
+        setAnswer(data);
     }
 
   
@@ -63,7 +63,7 @@ export default function Hitung() {
 const RenderButton = ()=>{
         
     return(
-        <Button onPress={(submit)}>
+        <Button type="primary" onPress={(submit)}>
         Simpan
         </Button>
     )
@@ -91,7 +91,7 @@ const RenderButton = ()=>{
         <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.data}</h1>
         <div style={{padding:'30px'}}>
         <Form>
-        <RenderQuestion/>
+            <RenderQuestion/>
             <RenderButton/>
         </Form>
         </div>
