@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Input, Dropdown, Menu, Icon  } from 'antd';
 import CompanyContext from '../util/UserContext';
+import TableContext from '../util/TableContext';
 import Axios from 'axios';
 
 export default function Perusahaan(props) {
@@ -9,6 +10,7 @@ export default function Perusahaan(props) {
     let [company, setCompany] =  useState({});
     let [allCompany,setAllCompany]=useState([]);
     const lelang = useContext(CompanyContext);
+    const table = useContext(TableContext);
 
     useEffect( ()=>{
         async function getData(){
