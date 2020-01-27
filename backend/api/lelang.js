@@ -38,13 +38,10 @@ router.post("/gettable", async (req, res, next) => {
 router.post("/newtable", async (req, res, next) => {
   const tablename = req.body.tableName;
   try {
-       knex.raw("CREATE TABLE " + tablename + " LIKE answer")
-
-    // await knex.transaction (function(trx){
-    //    trx.raw("CREATE TABLE " + tablename + " LIKE answer").then()
-    // }).then(function(hasil){
-    // }).then(trx.commit)
-    res.json({
+      await knex.raw("CREATE TABLE " + tablename + " LIKE answer" )
+      await knex.raw("ALTER TABLE " + tablename + " ADD FOREIGN KEY (id_company) REFERENCES company(id_company)")
+      await knex.raw("ALTER TABLE " + tablename + " ADD FOREIGN KEY (id_variablepoint) REFERENCES variablepoint(id_variablepoint)")
+      res.json({
       message: "Table Berhasil Dibuat"
     });
   } catch (e) {
