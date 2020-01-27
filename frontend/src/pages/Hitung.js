@@ -23,7 +23,6 @@ export default function Hitung() {
         async function getData(){
             try{
                 let data = await Axios.get('http://localhost:5000/lelang/getquestion');
-                console.log(data.data.pertanyaan)
                 setSoal(data.data.pertanyaan);
             }
             catch(e){
@@ -56,7 +55,7 @@ export default function Hitung() {
         })
      }
      else{
-         return(<h1>Loading....</h1>)
+         return(<h2 style={{textAlign:"center"}}>Loading....</h2>)
      }
 }
 

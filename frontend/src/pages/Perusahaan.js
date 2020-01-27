@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Input, Dropdown, Menu, Icon  } from 'antd';
 import CompanyContext from '../util/UserContext';
-import TableContext from '../util/TableContext';
 import Axios from 'axios';
 
 export default function Perusahaan(props) {
@@ -10,7 +9,6 @@ export default function Perusahaan(props) {
     let [company, setCompany] =  useState({});
     let [allCompany,setAllCompany]=useState([]);
     const lelang = useContext(CompanyContext);
-    const table = useContext(TableContext);
 
     useEffect( ()=>{
         async function getData(){
@@ -40,14 +38,14 @@ export default function Perusahaan(props) {
     
     function getCompany(e) {
         let data = e.target.value;
-        setCompany({ companyName: data });
+        setCompany({ nama_perusahaan: data });
     }
 
     async function submit(e) {
         setLoading(true);
         e.preventDefault();
             try {
-              const token = await Axios.post('http://localhost:5000/lelang/insert_company', lelang.data, company);
+              const token = await Axios.post('http://localhost:5000/lelang/insert_company', company);
               localStorage.setItem('token',token.data.token);
               window.location.replace('/')
             }

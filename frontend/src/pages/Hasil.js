@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Table, Popconfirm } from 'antd';
 import Axios from 'axios';
-import UserContext from '../util/UserContext';
+import TableContext from '../util/UserContext';
 export default function Hasil() {
     
     let [modal, setModal] = useState(false);
@@ -86,7 +86,7 @@ export default function Hasil() {
             }
         },
     ];
-    const table = useContext(UserContext);
+    const table = useContext(TableContext);
 
     return (
         <div style={{ textAlign: "center" }}>
