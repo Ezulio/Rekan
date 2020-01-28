@@ -50,6 +50,8 @@ router.post("/newtable", async (req, res, next) => {
   }
 });
 
+
+
 router.post("/deleteData", async (req, res, next) => {
   const tablename = req.body.tableName;
   const id = req.body.id;
@@ -128,7 +130,7 @@ router.get("/getquestion", async (req, res, next) => {
         "question.question",
         "variablepoint.id_variablepoint",
         "variablepoint.variable",
-        "variablepoint.point"
+        // "variablepoint.point"
       );
     const parseData = data => {
         return [...data.reduce((ques, {parameter_question, id_question,type_question,question,id_variablepoint,variable,point }) => {
@@ -137,9 +139,9 @@ router.get("/getquestion", async (req, res, next) => {
           newVarValue.push(id_variablepoint)
           const newQuesVar = currentQuestion ? currentQuestion.variable : []
           newQuesVar.push(variable)
-          const newVarPoint = currentQuestion ? currentQuestion.point : []
-          newVarPoint.push(point)
-          ques.set(id_question, {parameter_question, id_question, type_question, question,id_variablepoint:newVarValue,variable: newQuesVar,point:newVarPoint })
+          // const newVarPoint = currentQuestion ? currentQuestion.point : []
+          // newVarPoint.push(point)
+          ques.set(id_question, {parameter_question, id_question, type_question, question,id_variablepoint:newVarValue,variable: newQuesVar})
           return ques
         }, new Map()).values()]
       }
@@ -155,50 +157,50 @@ router.get("/getquestion", async (req, res, next) => {
   }
 });
 
-router.post("/getquestion_parameter", async (req, res, next) => {
-  const id_parameter_question = req.body.id_parameter_question;
-  try {
-    let pertanyaan = await knex("variablepoint")
-      .join(
-        "question",
-        "variablepoint.id_question",
-        "=",
-        "question.id_question"
-      )
-      .join(
-        "parameter_question",
-        "question.id_parameter_question",
-        "=",
-        "parameter_question.id_parameter_question"
-      )
-      .select(
-        "parameter_question.parameter_question",
-        "question.type_question",
-        "question.question",
-        "variablepoint.variable",
-        "variablepoint.point"
-      )
-      .where("parameter_question.id_parameter_question", id_parameter_question);
-    res.json({
-      question_and_variable: pertanyaan
-    });
-  } catch (e) {
-    const error = new Error("Terjadi Error: " + e);
-    next(error);
-  }
-});
+// router.post("/getquestion_parameter", async (req, res, next) => {
+//   const id_parameter_question = req.body.id_parameter_question;
+//   try {
+//     let pertanyaan = await knex("variablepoint")
+//       .join(
+//         "question",
+//         "variablepoint.id_question",
+//         "=",
+//         "question.id_question"
+//       )
+//       .join(
+//         "parameter_question",
+//         "question.id_parameter_question",
+//         "=",
+//         "parameter_question.id_parameter_question"
+//       )
+//       .select(
+//         "parameter_question.parameter_question",
+//         "question.type_question",
+//         "question.question",
+//         "variablepoint.variable",
+//         "variablepoint.point"
+//       )
+//       .where("parameter_question.id_parameter_question", id_parameter_question);
+//     res.json({
+//       question_and_variable: pertanyaan
+//     });
+//   } catch (e) {
+//     const error = new Error("Terjadi Error: " + e);
+//     next(error);
+//   }
+// });
 
-router.get("/getcompany", async (req, res, next) => {
-  try {
-    let profil = await knex.select().table("company");
-    res.json({
-      list_company: profil
-    });
-  } catch (e) {
-    const error = new Error("Terjadi Error: " + e);
-    next(error);
-  }
-});
+// router.get("/getcompany", async (req, res, next) => {
+//   try {
+//     let profil = await knex.select().table("company");
+//     res.json({
+//       list_company: profil
+//     });
+//   } catch (e) {
+//     const error = new Error("Terjadi Error: " + e);
+//     next(error);
+//   }
+// });
 
 router.post("/getanswer", async (req, res, next) => {
   const id_company = req.body.id_company;
@@ -237,6 +239,68 @@ router.post("/deleteanswer", async (req, res, next) => {
   } catch (e) {
     const err_delete = new Error("Kesalahan Database  " + e);
     next(err_delete);
+  }
+});
+
+router.get("/getanswer", async (req, res, next) => {
+  try {
+    let jawaban = await knex("answer")
+      .join(
+        "company",
+        "answer.id_company",
+        "=",
+        "company.id_company"
+      )
+      .join(
+        "variablepoint",
+        "answer.id_variablepoint",
+        "=",
+        "variablepoint.id_variablepoint"
+      )
+      .join(
+        "question",
+        "variablepoint.id_question",
+        "=",
+        "question.id_question"
+      )
+      .join(
+        "parameter_question",
+        "question.id_parameter_question",
+        "=",
+        "parameter_question.id_parameter_question"
+      )
+      .select(
+        "parameter_question.parameter_question",
+        "company.nama_perusahaan",
+        "question.question",
+        "variablepoint.variable",
+        "answer.answer",
+        "variablepoint.point"
+      );
+    const parseData = data => {
+        return [...data.reduce((comp, {parameter_question,id_company, nama_perusahaan,question,variable,answer,point }) => {
+          const currentCompany = comp.get(id_company)
+          const newQuesValue = currentCompany ? currentCompany.question : []
+          newQuesValue.push(question)
+          const newQuesVar = currentCompany ? currentCompany.variable : []
+          newQuesVar.push(variable)
+          const newAnsVal = currentCompany ? currentCompany.answer : []
+          newAnsVal.push(answer)
+          const newVarPoint = currentCompany ? currentCompany.point : []
+          newVarPoint.push(point)
+          comp.set(id_company, {parameter_question, nama_perusahaan, question:newQuesValue, variable:newQuesVar, answer: newAnsVal, point:newVarPoint })
+          return comp
+        }, new Map()).values()]
+      }
+      
+      res.json({
+        "jawaban": parseData(jawaban)
+      })
+      
+
+  } catch (e) {
+    const error = new Error("Terjadi Error: " + e);
+    next(error);
   }
 });
 
