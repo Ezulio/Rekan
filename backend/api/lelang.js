@@ -133,7 +133,7 @@ router.get("/getquestion", async (req, res, next) => {
         // "variablepoint.point"
       );
     const parseData = data => {
-        return [...data.reduce((ques, {parameter_question, id_question,type_question,question,id_variablepoint,variable,point }) => {
+        return [...data.reduce((ques, {parameter_question, id_question,type_question,question,id_variablepoint,variable }) => {
           const currentQuestion = ques.get(id_question)
           const newVarValue = currentQuestion ? currentQuestion.id_variablepoint : []
           newVarValue.push(id_variablepoint)
@@ -202,30 +202,30 @@ router.get("/getquestion", async (req, res, next) => {
 //   }
 // });
 
-router.post("/getanswer", async (req, res, next) => {
-  const id_company = req.body.id_company;
+// router.post("/getanswer", async (req, res, next) => {
+//   const id_company = req.body.id_company;
 
-  try {
-    let query =
-      "SELECT company.nama_perusahaan, parameter_question.parameter_question, question.question, answer.answer, variablepoint.point " +
-      "FROM answer JOIN company ON answer.id_company = company.id_company" +
-      " JOIN variablepoint ON answer.id_variablepoint = variablepoint.id_variablepoint" +
-      " JOIN question ON variablepoint.id_question = question.id_question" +
-      " JOIN parameter_question ON question.id_parameter_question = parameter_question.id_parameter_question" +
-      " WHERE answer.id_company = " +
-      id_company +
-      "";
-    let jawaban = await knex.raw(query);
+//   try {
+//     let query =
+//       "SELECT company.nama_perusahaan, parameter_question.parameter_question, question.question, answer.answer, variablepoint.point " +
+//       "FROM answer JOIN company ON answer.id_company = company.id_company" +
+//       " JOIN variablepoint ON answer.id_variablepoint = variablepoint.id_variablepoint" +
+//       " JOIN question ON variablepoint.id_question = question.id_question" +
+//       " JOIN parameter_question ON question.id_parameter_question = parameter_question.id_parameter_question" +
+//       " WHERE answer.id_company = " +
+//       id_company +
+//       "";
+//     let jawaban = await knex.raw(query);
 
-    console.log(jawaban[0]);
-    res.json({
-      data: jawaban[0]
-    });
-  } catch (e) {
-    const error = new Error("Terjadi ERROR: " + e);
-    next(error);
-  }
-});
+//     console.log(jawaban[0]);
+//     res.json({
+//       data: jawaban[0]
+//     });
+//   } catch (e) {
+//     const error = new Error("Terjadi ERROR: " + e);
+//     next(error);
+//   }
+// });
 
 router.post("/deleteanswer", async (req, res, next) => {
   const id_answer = req.body.id_answer;
@@ -244,6 +244,8 @@ router.post("/deleteanswer", async (req, res, next) => {
 
 router.get("/getanswer", async (req, res, next) => {
   try {
+
+    // const id_company = req.body.id_company;
     let jawaban = await knex("answer")
       .join(
         "company",
@@ -270,16 +272,20 @@ router.get("/getanswer", async (req, res, next) => {
         "parameter_question.id_parameter_question"
       )
       .select(
-        "parameter_question.parameter_question",
+        "answer.id_company",
         "company.nama_perusahaan",
+        "parameter_question.parameter_question",
         "question.question",
         "variablepoint.variable",
         "answer.answer",
-        "variablepoint.point"
+        "variablepoint.point",
+        "answer.keterangan"
       );
     const parseData = data => {
-        return [...data.reduce((comp, {parameter_question,id_company, nama_perusahaan,question,variable,answer,point }) => {
+        return [...data.reduce((comp, {id_company, nama_perusahaan, parameter_question, question,variable,answer,point, keterangan}) => {
           const currentCompany = comp.get(id_company)
+          const newParamValue = currentCompany ? currentCompany.parameter_question : []
+          newParamValue.push(parameter_question)
           const newQuesValue = currentCompany ? currentCompany.question : []
           newQuesValue.push(question)
           const newQuesVar = currentCompany ? currentCompany.variable : []
@@ -288,7 +294,9 @@ router.get("/getanswer", async (req, res, next) => {
           newAnsVal.push(answer)
           const newVarPoint = currentCompany ? currentCompany.point : []
           newVarPoint.push(point)
-          comp.set(id_company, {parameter_question, nama_perusahaan, question:newQuesValue, variable:newQuesVar, answer: newAnsVal, point:newVarPoint })
+          const newKetValue = currentCompany ? currentCompany.keterangan : []
+          newKetValue.push(keterangan)
+          comp.set(id_company, {id_company,nama_perusahaan, parameter_question: newParamValue,  question:newQuesValue, variable:newQuesVar, answer: newAnsVal, point:newVarPoint, keterangan: newKetValue })
           return comp
         }, new Map()).values()]
       }
@@ -305,6 +313,9 @@ router.get("/getanswer", async (req, res, next) => {
 });
 
 module.exports = router;
+
+
+// SELECT parameter_question.parameter_question, company.nama_perusahaan,question.question, variablepoint.variable, answer.answer, variablepoint.point FROM answer JOIN company ON answer.id_company = company.id_company JOIN variablepoint ON answer.id_variablepoint = variablepoint.id_variablepoint JOIN question ON variablepoint.id_question = question.id_question JOIN parameter_question ON question.id_parameter_question = parameter_question.id_parameter_question
 
 // function hitungKekayaan(kaya, f_Plafon){
 
