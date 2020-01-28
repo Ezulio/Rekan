@@ -15,7 +15,7 @@ export default function Hitung() {
     let [soal,setSoal] = useState([]);
     let [pilihan, setPilihan] = useState([]);
     let [test,setTest] = useState([1,2,3,4,5]);
-    let [answer, setAnswer] = useState('');
+    let [answer, setAnswer] = useState();
 
     const company = useContext(CompanyContext);
 
@@ -32,16 +32,15 @@ export default function Hitung() {
         getData();
     },[]);
     
-    function onAnswer(data){
-        // setAnswer(data);
-        console.log(data)
-    }
+    // function onAnswer(data){
+    //     setAnswer(data)
+    // }
 
     const RenderButton = ()=>{
             
         return(
             <div style={{textAlign:"center"}}>
-            <Button type="primary" style={{ width: '20%' }} onPress={(submit)}>
+            <Button type="primary"  onPress={(submit)}>
             Simpan
             </Button>
             </div>
@@ -55,13 +54,13 @@ export default function Hitung() {
        return soal.map(data=>{
            switch(data.type_question){
             case "input":
-                return(<CustomInput data={data} onAnswer={onAnswer}/>)
-                case "input_only":
-                   return(<InputOnly data={data} onAnswer={onAnswer}/>)
-                case "lampiran":
-                   return(<Lampiran data={data} onAnswer={onAnswer}/>)
-                case "checkbox":
-                   return(<CustomCheckBox data={data} onAnswer={onAnswer}/>)
+                return(<CustomInput data={data} onAnswer={data => setAnswer(data)}/>)
+            case "input_only":
+                return(<InputOnly data={data} onAnswer={data => setAnswer(data)}/>)
+            case "lampiran":
+               return(<Lampiran data={data} onAnswer={data => setAnswer(data)}/>)
+            case "checkbox":
+               return(<CustomCheckBox data={data} onAnswer={data => setAnswer(data)}/>)
                 }
         })
      }
@@ -91,7 +90,7 @@ export default function Hitung() {
         <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.data}</h1>
         <div style={{padding:'30px'}}>
         <Form>
-            <RenderQuestion/>
+            <RenderQuestion />
             <RenderButton/>
         </Form>
         </div>

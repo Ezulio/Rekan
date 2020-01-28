@@ -16,8 +16,7 @@ export default function CustomInput (props){
         <Form.Item required>
             <Radio.Group 
              options = {radioInput.variable}
-             onChange = {(data)=>props.onAnswer(data.target.value)}
-             onClick = {(data) => props.onAnswer(data.radioInput.variable)}
+             onClick = {(data) => props.onAnswer(data.target.value)}
              >
              
             </Radio.Group>
