@@ -37,8 +37,19 @@ export default function Hitung() {
         console.log(data)
     }
 
-  
-
+    const RenderButton = ()=>{
+            
+        return(
+            <div style={{textAlign:"center"}}>
+            <Button type="primary" style={{ width: '20%' }} onPress={(submit)}>
+            Simpan
+            </Button>
+            </div>
+        )
+    
+    
+    }
+    
  const RenderQuestion = ()=>{
      if (soal.length!=0){
        return soal.map(data=>{
@@ -51,7 +62,7 @@ export default function Hitung() {
                    return(<Lampiran data={data} onAnswer={onAnswer}/>)
                 case "checkbox":
                    return(<CustomCheckBox data={data} onAnswer={onAnswer}/>)
-           }
+                }
         })
      }
      else{
@@ -59,16 +70,6 @@ export default function Hitung() {
      }
 }
 
-const RenderButton = ()=>{
-        
-    return(
-        <Button type="primary" onPress={(submit)}>
-        Simpan
-        </Button>
-    )
-
-
-}
 
 //insert_answer
 
