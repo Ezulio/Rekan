@@ -15,8 +15,7 @@ export default function CustomCheckBox(props){
             <Form.Item required>
                 <Checkbox.Group
                     options={check.variable}
-                    onChange={(data)=>props.onAnswer(data.target.value)}
-                    onClick = {(data) => props.onAnswer(data.check.variable)}
+                    onClick={data => props.onAnswer(data.target.value)}
                 >
                 </Checkbox.Group>
                 <br/>
