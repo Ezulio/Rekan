@@ -7,96 +7,109 @@ import InputOnly from '../components/InputOnly';
 import CustomInput from '../components/Input';
 import Lampiran from '../components/Lampiran';
 import CustomCheckBox from '../components/CheckBox';
-import { OmitProps } from 'antd/lib/transfer/renderListBody';
 
 export default function Hitung() {
 
     let [loading, setLoading] = useState(false);
     let [form, setForm] = useState([]);
-    let [soal,setSoal] = useState([]);
+    let [soal, setSoal] = useState([]);
     let [pilihan, setPilihan] = useState([]);
-    let [test,setTest] = useState([1,2,3,4,5]);
+    let [test, setTest] = useState([1, 2, 3, 4, 5]);
     let [answer, setAnswer] = useState("");
 
-    const company = useContext(CompanyContext);
+    let [coba, setCoba] = useState([]);
+    let [coba2, setCoba2] = useState([]);
 
-    useEffect( () => {
-        async function getData(){
-            try{
+    const company = useContext(CompanyContext);
+    let answertemp = []
+
+    useEffect(() => {
+        async function getData() {
+            try {
                 let data = await Axios.get('http://localhost:5000/lelang/getquestion');
                 setSoal(data.data.pertanyaan);
             }
-            catch(e){
+            catch (e) {
                 console.log(e);
             }
         }
         getData();
-    },[]);
-    
-      function onAnswer(data){
-        setLoading(false)
-        setAnswer(data)
-        console.log(data)
+    }, []);
+
+    function onAnswer(data) {
+        answertemp.push(data);
+        console.log(answertemp);
     }
 
-    const RenderButton = ()=>{
-            
-        return(
-            <div style={{textAlign:"center"}}>
-            <button type="primary"  onPress={(submit)}>
-            Simpan
-            </button>
-            </div>
-        )
-    
-    
-    }
-    
-    const RenderQuestion = ()=>{
-     if (soal.length!=0){
-       return soal.map(data=>{
-           switch(data.type_question){
-            case "input":
-                return(<CustomInput data = {data} onAnswer={onAnswer}/>)
-            case "input_only":
-                return(<InputOnly data = {data} onAnswer={onAnswer} />)
-            case "lampiran":
-               return(<Lampiran data = {data} onAnswer={onAnswer}/>)
-            case "checkbox":
-               return(<CustomCheckBox data = {data} onAnswer={onAnswer}/>)
+
+
+
+    function RenderQuestion() {
+        if (soal.length != 0) {
+            return soal.map(data => {
+                switch (data.type_question) {
+                    case "input":
+                        return (<CustomInput data={data} onAnswer={onAnswer} />)
+                    case "input_only":
+                        return (<InputOnly data={data} onAnswer={answer => {
+                            if(coba.length!=0){
+                                for(let i =0;i<coba.length;i++){
+                                    if (coba[i].id_question===answer.id_question){
+                                        coba[i].answer=answer.answer;
+                                        break;
+                                    }
+                                    else if (i<coba.length-1){
+                                        continue;
+                                    }
+                                    else{
+                                        setCoba([...coba,answer])
+                                    }                       
+                                }
+                            }
+                            else{
+                                console.log('add');
+                                setCoba([...coba,answer])
+                            }
+                           
+                        }} />)
+                    case "lampiran":
+                        return (<Lampiran data={data} onAnswer={onAnswer} />)
+                    case "checkbox":
+                        return (<CustomCheckBox data={data} onAnswer={onAnswer} />)
                 }
-        })
-     }
-     else{
-         return(<h2 style={{textAlign:"center"}}>Loading....</h2>)
-     }
-}
+            })
+        }
+        else {
+            return (<h2 style={{ textAlign: "center" }}>Loading....</h2>)
+        }
+    }
 
 
-//insert_answer
+    //insert_answer
 
     async function submit(e) {
+        setAnswer(answertemp)
         setLoading(true);
         e.preventDefault();
-            try {
-              const token = await Axios.post('http://localhost:5000/lelang/insert_answer', company.data, );
+        try {
+            const token = await Axios.post('http://localhost:5000/lelang/insert_answer', company.data);
 
-            }
-            catch (e) {
-             alert("error " + e)
-            }
+        }
+        catch (e) {
+            alert("error " + e)
+        }
         setLoading(false);
     }
 
     return (
         <div>
-        <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.data}</h1>
-        <div style={{padding:'30px'}}>
-        <Form>
-            <RenderQuestion/>
-            <RenderButton/>
-        </Form>
-        </div>
+            <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.data}</h1>
+            <div style={{ padding: '30px' }}>
+                <Form>
+                    {RenderQuestion()}
+                    <button onClick={() => console.log(coba)}>Simpan</button>
+                </Form>
+            </div>
         </div>
     );
 }

@@ -5,6 +5,7 @@ import {  Input, Form } from 'antd';
 export default function InputOnly (props){
     let[inputOnly,setInputOnly]=useState({});
     let [temp,setTemp]=useState('');
+    let [answer,setAnswer]=useState({});
     useEffect(()=>{
         setInputOnly(props.data);
     },[]);
@@ -12,10 +13,20 @@ export default function InputOnly (props){
         <div>
         <p style={{fontWeight:"bold"}}>{inputOnly.question}</p>
         <Form.Item required>
-            <input style={{ width: '20%' }}
-             onBlur={data => props.onAnswer(data.target.value)}
+            <Input style={{ width: '20%' }}
+            id = {inputOnly.id_question}
+            value={temp}
+            onChange={data => {
+                 setTemp(data.target.value);
+                 let answer = {
+                     id_question:data.target.id,
+                     answer:data.target.value
+                 }
+                 props.onAnswer(answer);
+                // setAnswer(answer);
+                 }}
             >
-              </input> 
+              </Input> 
             <br/>
             </Form.Item>
         </div>
