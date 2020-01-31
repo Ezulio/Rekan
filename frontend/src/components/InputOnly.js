@@ -9,6 +9,8 @@ export default function InputOnly (props){
     useEffect(()=>{
         setInputOnly(props.data);
     },[]);
+    
+    
     return (
         <div>
         <p style={{fontWeight:"bold"}}>{inputOnly.question}</p>

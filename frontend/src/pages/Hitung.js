@@ -48,8 +48,29 @@ export default function Hitung() {
         if (soal.length != 0) {
             return soal.map(data => {
                 switch (data.type_question) {
+                    
                     case "input":
-                        return (<CustomInput data={data} onAnswer={onAnswer} />)
+                        return (<CustomInput data={data} onAnswer={answer => {
+                            if(coba.length!=0){
+                                for(let i =0;i<coba.length;i++){
+                                    if (coba[i].id_question===answer.id_question){
+                                        coba[i].answer=answer.answer;
+                                        break;
+                                    }
+                                    else if (i<coba.length-1){
+                                        continue;
+                                    }
+                                    else{
+                                        setCoba([...coba,answer])
+                                    }                       
+                                }
+                            }
+                            else{
+                                console.log('add');
+                                setCoba([...coba,answer])
+                            }
+                           
+                        }} />)
                     case "input_only":
                         return (<InputOnly data={data} onAnswer={answer => {
                             if(coba.length!=0){
