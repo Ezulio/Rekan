@@ -41,9 +41,7 @@ export default function Hitung() {
         console.log(answertemp);
     }
 
-
-
-
+console.log(coba)
     function RenderQuestion() {
         if (soal.length != 0) {
             return soal.map(data => {
@@ -51,12 +49,13 @@ export default function Hitung() {
                     
                     case "input":
                         return (<CustomInput data={data} onAnswer={answer => {
+                            //keliatannya ini salah karena ga sesuai buat radiobutton
                             if(coba.length!=0){
                                 for(let i =0;i<coba.length;i++){
                                     if (coba[i].id_question===answer.id_question){
                                         coba[i].answer=answer.answer;
                                         break;
-                                    }
+                                    }   
                                     else if (i<coba.length-1){
                                         continue;
                                     }
@@ -94,7 +93,27 @@ export default function Hitung() {
                            
                         }} />)
                     case "lampiran":
-                        return (<Lampiran data={data} onAnswer={onAnswer} />)
+                        return (<Lampiran data={data} onAnswer={answer => {
+                            if(coba.length!=0){
+                                for(let i =0;i<coba.length;i++){
+                                    if (coba[i].id_question===answer.id_question){
+                                        coba[i].answer=answer.answer;
+                                        break;
+                                    }
+                                    else if (i<coba.length-1){
+                                        continue;
+                                    }
+                                    else{
+                                        setCoba([...coba,answer])
+                                    }                       
+                                }
+                            }
+                            else{
+                                console.log('add');
+                                setCoba([...coba,answer])
+                            }
+                           
+                        }} />)
                     case "checkbox":
                         return (<CustomCheckBox data={data} onAnswer={onAnswer} />)
                 }

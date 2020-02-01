@@ -10,7 +10,7 @@ export default function InputOnly (props){
         setInputOnly(props.data);
     },[]);
     
-    
+
     return (
         <div>
         <p style={{fontWeight:"bold"}}>{inputOnly.question}</p>
