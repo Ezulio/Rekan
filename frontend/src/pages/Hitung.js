@@ -16,6 +16,7 @@ export default function Hitung() {
     let [pilihan, setPilihan] = useState([]);
     let [test, setTest] = useState([1, 2, 3, 4, 5]);
     let [answer, setAnswer] = useState("");
+    let [allCompany,setAllCompany]=useState([]);
 
     let [coba, setCoba] = useState([]);
     let [coba2, setCoba2] = useState([]);
@@ -36,26 +37,57 @@ export default function Hitung() {
         getData();
     }, []);
 
+    useEffect( ()=>{
+        async function getCompany(){
+            try{
+                let data = await Axios.get('http://localhost:5000/lelang/getcompany')
+                setAllCompany(data.data.list_company);
+            }
+            catch(e){
+                alert("error " + e)
+            }
+        }
+        getCompany();
+    },[])
+    // console.log(allCompany);
+
+    // function getCompanyId(namaPerusahaan, arrayLength){
+    //     let comId = 0;
+    //     for(let i = 0; i < arrayLength; i++ ){
+    //         if( namaPerusahaan === allCompany[i].nama_perusahaan){
+    //             comId = allCompany[i].id_company;
+                
+    //         }
+    //     } return comId;
+
+    // }
+    function getPerusahaan(com){
+        let perusahaan = allCompany;
+
+    }
+    
+
     function onAnswer(data) {
         answertemp.push(data);
         console.log(answertemp);
     }
-
-console.log(coba)
+    
     function RenderQuestion() {
         if (soal.length != 0) {
             return soal.map(data => {
                 switch (data.type_question) {
                     
-                    case "input":
+                    case "radio":
                         return (<CustomInput data={data} onAnswer={answer => {
                             //keliatannya ini salah karena ga sesuai buat radiobutton
+                            
+                            
                             if(coba.length!=0){
                                 for(let i =0;i<coba.length;i++){
-                                    if (coba[i].id_question===answer.id_question){
+                                    if (coba[i].id_variablepoint===answer.id_variablepoint){
                                         coba[i].answer=answer.answer;
                                         break;
-                                    }   
+                                    }
                                     else if (i<coba.length-1){
                                         continue;
                                     }
@@ -74,7 +106,7 @@ console.log(coba)
                         return (<InputOnly data={data} onAnswer={answer => {
                             if(coba.length!=0){
                                 for(let i =0;i<coba.length;i++){
-                                    if (coba[i].id_question===answer.id_question){
+                                    if (coba[i].id_variablepoint===answer.id_variablepoint){
                                         coba[i].answer=answer.answer;
                                         break;
                                     }
@@ -92,30 +124,7 @@ console.log(coba)
                             }
                            
                         }} />)
-                    case "lampiran":
-                        return (<Lampiran data={data} onAnswer={answer => {
-                            if(coba.length!=0){
-                                for(let i =0;i<coba.length;i++){
-                                    if (coba[i].id_question===answer.id_question){
-                                        coba[i].answer=answer.answer;
-                                        break;
-                                    }
-                                    else if (i<coba.length-1){
-                                        continue;
-                                    }
-                                    else{
-                                        setCoba([...coba,answer])
-                                    }                       
-                                }
-                            }
-                            else{
-                                console.log('add');
-                                setCoba([...coba,answer])
-                            }
-                           
-                        }} />)
-                    case "checkbox":
-                        return (<CustomCheckBox data={data} onAnswer={onAnswer} />)
+
                 }
             })
         }
@@ -126,14 +135,23 @@ console.log(coba)
 
 
     //insert_answer
-
+    
     async function submit(e) {
-        setAnswer(answertemp)
+        // setCoba({[{...coba,answer}]})
         setLoading(true);
         e.preventDefault();
         try {
-            const token = await Axios.post('http://localhost:5000/lelang/insert_answer', company.data);
-
+            
+            var jawaban = JSON.stringify({jawaban : coba});
+            var parsing = JSON.parse(jawaban)
+            const token = await Axios.post('http://localhost:5000/lelang/insert_answer', parsing);
+            // localStorage.setItem('token',token.data.token);
+            await console.log(typeof(jawaban));
+            await console.log("tipe parsing: " + typeof(parsing));
+            // await console.log("sukses insert");
+            //   window.location.replace('/')
+            
+            
         }
         catch (e) {
             alert("error " + e)
@@ -145,9 +163,9 @@ console.log(coba)
         <div>
             <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.data}</h1>
             <div style={{ padding: '30px' }}>
-                <Form>
+                <Form onSubmit={(e) => submit(e)}>
                     {RenderQuestion()}
-                    <button onClick={() => console.log(coba)}>Simpan</button>
+                    <button type={"submit"} style={{ backgroundColor: "#2a339c", color: "white", width: "80px", height: "40px", borderRadius: "5px" }}>{loading ? "Loading.." : "Submit"}</button>
                 </Form>
             </div>
         </div>

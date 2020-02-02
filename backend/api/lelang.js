@@ -5,6 +5,9 @@ const Joi = require("@hapi/joi");
 const lodash = require("lodash");
 const router = express.Router();
 
+
+const nama_table= "";
+
 router.get("/getdb", async (req, res, next) => {
   try {
     let getdb = await knex
@@ -86,24 +89,15 @@ router.post("/insert_company", async (req, res, next) => {
 });
 
 router.post("/insert_answer", async (req, res, next) => {
-  const id_company = req.body.id_company;
-  const id_variablepoint = req.body.id_variablepoint;
-  const answer = req.body.answer;
-  const keterangan = req.body.keterangan;
+  const jawaban = req.body.jawaban;
 
-  try {
-    const tambah = await knex("answer").insert({
-      id_company: id_company,
-      id_variablepoint: id_variablepoint,
-      answer: answer,
-      keterangan: keterangan
-    });
+  try{
+    const tambah = await knex("answer").insert(jawaban)
     res.json({
-      message: "Insert Berhasil",
-      data: tambah
-    });
-  } catch (e) {
-    const error = new Error("Kesalahan Database " + e);
+      "data":tambah
+    })
+  }catch(e){
+    const error = new Error ("ERROR: "+e);
     next(error);
   }
 });
@@ -130,18 +124,18 @@ router.get("/getquestion", async (req, res, next) => {
         "question.question",
         "variablepoint.id_variablepoint",
         "variablepoint.variable",
-        // "variablepoint.point"
+        "variablepoint.point"
       );
     const parseData = data => {
-        return [...data.reduce((ques, {parameter_question, id_question,type_question,question,id_variablepoint,variable }) => {
+        return [...data.reduce((ques, {parameter_question, id_question,type_question,question,id_variablepoint,variable,point }) => {
           const currentQuestion = ques.get(id_question)
           const newVarValue = currentQuestion ? currentQuestion.id_variablepoint : []
           newVarValue.push(id_variablepoint)
           const newQuesVar = currentQuestion ? currentQuestion.variable : []
           newQuesVar.push(variable)
-          // const newVarPoint = currentQuestion ? currentQuestion.point : []
-          // newVarPoint.push(point)
-          ques.set(id_question, {parameter_question, id_question, type_question, question,id_variablepoint:newVarValue,variable: newQuesVar})
+          const newVarPoint = currentQuestion ? currentQuestion.point : []
+          newVarPoint.push(point)
+          ques.set(id_question, {parameter_question, id_question, type_question, question,id_variablepoint:newVarValue,variable: newQuesVar, point:newVarPoint})
           return ques
         }, new Map()).values()]
       }
@@ -190,17 +184,17 @@ router.get("/getquestion", async (req, res, next) => {
 //   }
 // });
 
-// router.get("/getcompany", async (req, res, next) => {
-//   try {
-//     let profil = await knex.select().table("company");
-//     res.json({
-//       list_company: profil
-//     });
-//   } catch (e) {
-//     const error = new Error("Terjadi Error: " + e);
-//     next(error);
-//   }
-// });
+router.get("/getcompany", async (req, res, next) => {
+  try {
+    let profil = await knex.select().table("company");
+    res.json({
+      list_company: profil
+    });
+  } catch (e) {
+    const error = new Error("Terjadi Error: " + e);
+    next(error);
+  }
+});
 
 // router.post("/getanswer", async (req, res, next) => {
 //   const id_company = req.body.id_company;

@@ -9,7 +9,7 @@ export default function Perusahaan(props) {
     let [company, setCompany] =  useState({});
     let [allCompany,setAllCompany]=useState([]);
     const lelang = useContext(CompanyContext);
-
+    
     useEffect( ()=>{
         async function getData(){
             try{
@@ -35,29 +35,35 @@ export default function Perusahaan(props) {
          )}   
         </Menu>
     )
-    
+    let id  = allCompany.map((data)=>(
+        data.id_company
+    ))
+    let test = id
     function getCompany(e) {
-        let data = e.target.value;
-        setCompany({ nama_perusahaan: data });
+        let data = e.target.value
+        setCompany({ 
+            nama_perusahaan: data });
     }
-
+    
     async function submit(e) {
         setLoading(true);
         e.preventDefault();
-            try {
-              const token = await Axios.post('http://localhost:5000/lelang/insert_company', company);
+        try {
+            const token = await Axios.post('http://localhost:5000/lelang/insert_company', company);
               localStorage.setItem('token',token.data.token);
               window.location.replace('/')
+              console.log(typeof(company));
             }
             catch (e) {
              alert("error " + e)
-            }
+            } 
         setLoading(false);
     }
 
     return (
         <div style={{ textAlign: "center", marginTop: '15%' }}>
             <h1>Perusahaan</h1>
+            <h3>{test}</h3>
         <div style = {{ textAlign: "center" }}>
         <Dropdown overlay={menu} trigger={['click']}>
                     <a className="ant-dropdown-link" href="#">
