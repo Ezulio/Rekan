@@ -272,11 +272,10 @@ router.get("/getanswer", async (req, res, next) => {
         "question.question",
         "variablepoint.variable",
         "answer.answer",
-        "variablepoint.point",
-        "answer.keterangan"
+        "variablepoint.point"
       );
     const parseData = data => {
-        return [...data.reduce((comp, {id_company, nama_perusahaan, parameter_question, question,variable,answer,point, keterangan}) => {
+        return [...data.reduce((comp, {id_company, nama_perusahaan, parameter_question, question,variable,answer,point}) => {
           const currentCompany = comp.get(id_company)
           const newParamValue = currentCompany ? currentCompany.parameter_question : []
           newParamValue.push(parameter_question)
@@ -288,9 +287,7 @@ router.get("/getanswer", async (req, res, next) => {
           newAnsVal.push(answer)
           const newVarPoint = currentCompany ? currentCompany.point : []
           newVarPoint.push(point)
-          const newKetValue = currentCompany ? currentCompany.keterangan : []
-          newKetValue.push(keterangan)
-          comp.set(id_company, {id_company,nama_perusahaan, parameter_question: newParamValue,  question:newQuesValue, variable:newQuesVar, answer: newAnsVal, point:newVarPoint, keterangan: newKetValue })
+          comp.set(id_company, {id_company,nama_perusahaan, parameter_question: newParamValue,  question:newQuesValue, variable:newQuesVar, answer: newAnsVal, point:newVarPoint})
           return comp
         }, new Map()).values()]
       }
