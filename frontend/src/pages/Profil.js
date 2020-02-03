@@ -34,6 +34,7 @@ export default function Profil() {
 
         }
         console.log(soal)
+        
     // for(let i = 0; i < question.length; i++){
     //     console.log(question[i])
     //     console.log(answer[i])

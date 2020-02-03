@@ -79,7 +79,7 @@ export default function Hitung() {
                     
                     case "radio":
                         return (<CustomInput data={data} onAnswer={answer => {
-                            //keliatannya ini salah karena ga sesuai buat radiobutton
+                            
                             
                             
                             if(coba.length!=0){
