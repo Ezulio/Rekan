@@ -38,7 +38,7 @@ export default function CustomInput(props) {
         // console.log(keterangan);
     return (
         <div>
-            <p style={{ fontWeight: "bold" }}>{radioInput.question}{perusahaan.data}</p>
+            <p style={{ fontWeight: "bold" }}>{radioInput.question}</p>
             <Form.Item required={true}>
 
                 <Radio.Group

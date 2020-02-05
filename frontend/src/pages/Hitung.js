@@ -11,15 +11,11 @@ import CustomCheckBox from '../components/CheckBox';
 export default function Hitung() {
 
     let [loading, setLoading] = useState(false);
-    let [form, setForm] = useState([]);
     let [soal, setSoal] = useState([]);
-    let [pilihan, setPilihan] = useState([]);
-    let [test, setTest] = useState([1, 2, 3, 4, 5]);
     let [answer, setAnswer] = useState("");
     let [allCompany,setAllCompany]=useState([]);
 
     let [coba, setCoba] = useState([]);
-    let [coba2, setCoba2] = useState([]);
 
     const company = useContext(CompanyContext);
     let answertemp = []
@@ -145,11 +141,9 @@ export default function Hitung() {
             var jawaban = JSON.stringify({jawaban : coba});
             var parsing = JSON.parse(jawaban)
             const token = await Axios.post('http://localhost:5000/lelang/insert_answer', parsing);
-            // localStorage.setItem('token',token.data.token);
             await console.log(typeof(jawaban));
             await console.log("tipe parsing: " + typeof(parsing));
-            // await console.log("sukses insert");
-            //   window.location.replace('/')
+              window.location.replace('/Perusahaan')
             
             
         }

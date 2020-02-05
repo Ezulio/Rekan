@@ -32,7 +32,7 @@ export default function InputOnly (props){
     // console.log(inputOnly.point)
     return (
         <div>
-        <p style={{fontWeight:"bold"}}>{inputOnly.question}{perusahaan.data}</p>
+        <p style={{fontWeight:"bold"}}>{inputOnly.question}</p>
         <Form.Item required={true}>
             <Input style={{ width: '20%' }}
             id = {inputOnly.id_variablepoint}
