@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const Joi = require("@hapi/joi");
 const lodash = require("lodash");
 const router = express.Router();
+const hitung = require("../logic/weightedProduct")
 
 
 const nama_table= "";
@@ -151,38 +152,6 @@ router.get("/getquestion", async (req, res, next) => {
   }
 });
 
-// router.post("/getquestion_parameter", async (req, res, next) => {
-//   const id_parameter_question = req.body.id_parameter_question;
-//   try {
-//     let pertanyaan = await knex("variablepoint")
-//       .join(
-//         "question",
-//         "variablepoint.id_question",
-//         "=",
-//         "question.id_question"
-//       )
-//       .join(
-//         "parameter_question",
-//         "question.id_parameter_question",
-//         "=",
-//         "parameter_question.id_parameter_question"
-//       )
-//       .select(
-//         "parameter_question.parameter_question",
-//         "question.type_question",
-//         "question.question",
-//         "variablepoint.variable",
-//         "variablepoint.point"
-//       )
-//       .where("parameter_question.id_parameter_question", id_parameter_question);
-//     res.json({
-//       question_and_variable: pertanyaan
-//     });
-//   } catch (e) {
-//     const error = new Error("Terjadi Error: " + e);
-//     next(error);
-//   }
-// });
 
 router.get("/getcompany", async (req, res, next) => {
   try {
@@ -221,6 +190,18 @@ router.get("/getcompany", async (req, res, next) => {
 //   }
 // });
 
+router.get("/get_kriteria", async (req,res,next)=>{
+  try{
+    const parameter = await knex.select().table("parameter_question");
+    res.json({
+      syarat: parameter
+    });
+  } catch (e) {
+    const error = new Error("Terjadi Error: " + e);
+    next(error);
+  }
+})
+
 router.post("/deleteanswer", async (req, res, next) => {
   const id_answer = req.body.id_answer;
   try {
@@ -236,11 +217,12 @@ router.post("/deleteanswer", async (req, res, next) => {
   }
 });
 
-router.get("/getanswer", async (req, res, next) => {
+router.post("/getanswer", async (req, res, next) => {
+  const tableName = req.body.tableName;
+  const id_company = req.body.id_company;
+  
   try {
-
-    // const id_company = req.body.id_company;
-    let jawaban = await knex("answer")
+    let jawaban = await knex(tableName)
       .join(
         "company",
         "answer.id_company",
@@ -273,7 +255,7 @@ router.get("/getanswer", async (req, res, next) => {
         "variablepoint.variable",
         "answer.answer",
         "variablepoint.point"
-      );
+      ).where("answer.id_company", id_company);
     const parseData = data => {
         return [...data.reduce((comp, {id_company, nama_perusahaan, parameter_question, question,variable,answer,point}) => {
           const currentCompany = comp.get(id_company)
@@ -291,7 +273,7 @@ router.get("/getanswer", async (req, res, next) => {
           return comp
         }, new Map()).values()]
       }
-      
+
       res.json({
         "jawaban": parseData(jawaban)
       })
@@ -302,6 +284,164 @@ router.get("/getanswer", async (req, res, next) => {
     next(error);
   }
 });
+
+router.post("/hasil_hitung", async (req,res,next) =>{
+  let tableName = req.body.tableName;
+  let req_id_company = req.body.id_company;
+  
+  try{
+    let jawaban = await knex(tableName)
+    .join(
+      "company",
+      "answer.id_company",
+      "=",
+      "company.id_company"
+    )
+    .join(
+      "variablepoint",
+      "answer.id_variablepoint",
+      "=",
+      "variablepoint.id_variablepoint"
+    )
+    .join(
+      "question",
+      "variablepoint.id_question",
+      "=",
+      "question.id_question"
+    )
+    .join(
+      "parameter_question",
+      "question.id_parameter_question",
+      "=",
+      "parameter_question.id_parameter_question"
+    )
+    .select(
+      "answer.id_company",
+      "company.nama_perusahaan",
+      "parameter_question.parameter_question",
+      "question.question",
+      "variablepoint.variable",
+      "answer.answer",
+      "variablepoint.point")
+      .where("answer.id_company", req_id_company);
+      const parseData = data => {
+        return [...data.reduce((comp, {id_company, nama_perusahaan, parameter_question, question,variable,answer,point}) => {
+          const currentCompany = comp.get(id_company)
+          const newParamValue = currentCompany ? currentCompany.parameter_question : []
+          newParamValue.push(parameter_question)
+          const newQuesValue = currentCompany ? currentCompany.question : []
+          newQuesValue.push(question)
+          const newQuesVar = currentCompany ? currentCompany.variable : []
+          newQuesVar.push(variable)
+          const newAnsVal = currentCompany ? currentCompany.answer : []
+          newAnsVal.push(answer)
+          const newVarPoint = currentCompany ? currentCompany.point : []
+          newVarPoint.push(point)
+          comp.set(id_company, {id_company,nama_perusahaan, parameter_question: newParamValue,  question:newQuesValue, variable:newQuesVar, answer: newAnsVal, point:newVarPoint})
+          return comp
+        }, new Map()).values()]
+      
+      }
+      
+      let allAnswer = parseData(jawaban);
+      let param = await knex.select().from("parameter_question");
+
+      let kunci = [];
+      let weight = [];
+      param.forEach(data => kunci.push(data.parameter_question));
+      param.forEach(data => weight.push(data.bobot));
+      
+      let perusahaan="";
+      for(let i=0; i<allAnswer.length;i++){
+        if(allAnswer[i].id_company = req_id_company){
+            perusahaan = allAnswer[i].nama_perusahaan;
+        }
+      }
+
+        /*=======> SUM ANSWER POINT PER PARAMETER <=======*/
+      let administrasi = 0;
+      let minat = 0;
+      let financial = 0;
+      let pengalaman = 0;
+      let team = 0;
+      let stock = 0;
+      let peralatan = 0;
+      for(let i=0; i<allAnswer.length;i++){
+          if(allAnswer[i].id_company = req_id_company){
+            for(let j=0;j<allAnswer[i].point.length;j++){
+              if(j<=11){
+                administrasi += allAnswer[i].point[j]
+              }else if(j>11 && j<=22){
+                minat += allAnswer[i].point[j]
+              }else if(j>22 && j<=34){
+                financial += allAnswer[i].point[j]
+              }else if(j>34 && j<=49){
+                pengalaman += allAnswer[i].point[j]
+              }else if(j>49 && j<=57){
+                team += allAnswer[i].point[j]
+              }else if(j>57 && j<=69){
+                stock += allAnswer[i].point[j]
+              }else if(j>69 && j<=75){
+                peralatan += allAnswer[i].point[j]
+              }
+              
+            }
+            break;
+          }
+      }
+      
+      res.json({
+        "kriteria":[{
+          "key":kunci[0],
+          "bobot":weight[0]
+        },{
+          "key":kunci[1],
+          "bobot":weight[1]
+        },{
+          "key":kunci[2],
+          "bobot":weight[2]
+        },{
+          "key":kunci[3],
+          "bobot":weight[3]
+        },{
+          "key":kunci[4],
+          "bobot":weight[4]
+        },{
+          "key":kunci[5],
+          "bobot":weight[5]
+        },{
+          "key":kunci[6],
+          "bobot":weight[6]
+        }
+      ],
+
+        "alternatif":[
+          {
+            "key":perusahaan,
+            "value":{
+              "Administrasi":administrasi,
+              "Peminatan Tower Power":minat,
+              "Financial Capability":financial,
+              "Pengalaman":pengalaman,
+              "Team Availability":team,
+              "Stock Material dan Logistik":stock,
+              "Peralatan yang Digunakan":peralatan
+            }
+          }
+        ]
+      })
+      
+
+
+  }catch(e){
+    const error = new Error ("Kesahalan Perhitungan: "+e);
+    next(error);
+  }
+  
+
+
+
+})
 
 module.exports = router;
 
