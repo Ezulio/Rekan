@@ -1,36 +1,4 @@
-const data = {
-    kriteria: [
-        {
-            key: 'pasar',
-            bobot: 40
-        },
-        {
-            key: 'pendapatan',
-            bobot: 70
-        },
-        {
-            key: 'infrastruktur',
-            bobot: 20
-        },
-        {
-            key: 'transportasi',
-            bobot: 25
-        }
-    ],
-    alternatif: [
-        {
-            key: 'alt1',
-            value: { pasar: 2100000, pendapatan: 7200, infrastruktur: 800, transportasi: 100 },
-        },
-        {
-            key: 'alt2',
-            value: { pasar: 2000000, pendapatan: 7200, infrastruktur: 600, transportasi: 150 },
-        }, {
-            key: 'alt3',
-            value: { pasar: 2450000, pendapatan: 7200, infrastruktur: 1000, transportasi: 200 },
-        }
-    ]
-}
+
 function getTotalBobot(kriteria) {
     let sumOfBobot = 0;
     for (let i = 0; i < kriteria.length; i++) {
@@ -109,18 +77,17 @@ function countVectorVi(countSumVectorSi, countTotalVectorSi) {
     return vectorVi;
 }
 function getMaxAlt(vectorVi) {
-    console.log(vectorVi);
+    // console.log(vectorVi);
     let max=0 ;
     let result;
     for (let i = 0; i < vectorVi.length; i++){
        if (vectorVi[i].value > max){
-           max = vectorVi[i].value;
+           max += vectorVi[i].value;
            result = vectorVi[i].key;
        }
     }
-    return result; 
-
-
+    let fin_hasil = {perusahaan:result,value:max}
+    return fin_hasil; 
 }
 
 function hitung(kriteria, alternatif) {
@@ -131,7 +98,11 @@ function hitung(kriteria, alternatif) {
     let totalVectorSi = countTotalVectorSi(sumVectorSi);
     let vectorVi = countVectorVi(sumVectorSi, totalVectorSi);
     let Max = getMaxAlt(vectorVi)
+    // console.log(vectorVi)
+
+    // let score_fin = getMaxAlt(vectorVi[1])
+    // let coba = [Max,score_fin];
     return Max
 }
 
-// console.log(hitung(data.kriteria, data.alternatif));
+module.exports=hitung;
