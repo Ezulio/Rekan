@@ -76,7 +76,7 @@ export default function Hasil() {
     return (
         <div style={{ textAlign: "center" }}>
             <h1>Hasil {table.data}</h1>
-            <Table rowKey={record => record.value} bordered dataSource={dataSource} columns={columns} />
+            <Table rowKey={record => record.value} pagination={false} bordered dataSource={dataSource} columns={columns} />
         </div>
     )
 }
