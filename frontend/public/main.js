@@ -8,9 +8,8 @@ const url = require('url');
 const isDev = require('electron-is-dev');
 
 let mainWindow;
-
 function createWindow() {
-  mainWindow = new BrowserWindow({width: 1366, height: 768 , /*frame: false ,*/webPreferences: {
+  mainWindow = new BrowserWindow({width: 800, height: 600 , frame: false ,webPreferences: {
     nodeIntegration: true,
   }});
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
@@ -30,6 +29,7 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
 
 
 
