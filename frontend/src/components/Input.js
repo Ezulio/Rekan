@@ -49,7 +49,6 @@ export default function CustomInput(props) {
                     onChange={data => {
                         setTemp(data.target.value)
                         let varId = 0;
-                        let comId = 0;
                         for (let i = 0; i < radioInput.id_variablepoint.length; i++) {
                             if (data.target.value === radioInput.variable[i]) {
 
@@ -57,17 +56,6 @@ export default function CustomInput(props) {
                             }
 
                         }
-                        for (let i = 0; i < company.length; i++) {
-                            if (tes.perusahaan === company[i].nama_perusahaan) {
-
-                                comId = company[i].id_company;
-                            }
-                        }
-
-                        // for(let i = 0; i < allCompany.length; i++){
-                        //     if()
-                        // }
-                        
                         let answer={
                             id_company : tes.perusahaan,
                             id_variablepoint: varId,

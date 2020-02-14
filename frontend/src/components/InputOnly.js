@@ -40,14 +40,6 @@ export default function InputOnly (props){
             onChange={data => {
                  setTemp(data.target.value);
                  let varId = 0;
-                 let comId = 0;
-                        for (let i = 0; i < company.length; i++) {
-                            if (tes.perusahaan === company[i].id_company) {
-
-                                comId = company[i].id_company;
-                            }
-                        }
-
                         for (let i = 0; i < inputOnly.point.length; i++) {
                             if (inputOnly.point[i] === 0) {
 

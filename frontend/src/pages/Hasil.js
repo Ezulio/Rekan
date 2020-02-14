@@ -12,11 +12,12 @@ export default function Hasil() {
                 async function getData(){
                     try{
                         let data = await Axios.post('http://localhost:5000/lelang/get_profile', {tableName:table.data});
-                        console.log(data);
-                        // setDataSource(data);
+                        console.log(data.data.hasil);
+                        setDataSource(data.data.hasil);
                     }
-                    catch(e){
-                        alert("Error : " + e)
+                    catch{
+                        alert("Silahkan Pilih Lelang Terlebih Dahulu!")
+                        window.location.replace('/')
                     }
                 }
                 getData();
@@ -52,8 +53,8 @@ export default function Hasil() {
         },
         {
             title: 'Keterangan',
-            dataIndex: 'Keterangan',
-            key: 'Keterangan',
+            dataIndex: 'keterangan',
+            key: 'keterangan',
         },
         {
             title: 'operation',
@@ -75,7 +76,7 @@ export default function Hasil() {
     return (
         <div style={{ textAlign: "center" }}>
             <h1>Hasil {table.data}</h1>
-            <Table rowKey={record => record.id} bordered dataSource={dataSource} columns={columns} />
+            <Table rowKey={record => record.value} bordered dataSource={dataSource} columns={columns} />
         </div>
     )
 }

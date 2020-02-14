@@ -162,7 +162,9 @@ export default function Hitung() {
             <div style={{ padding: '30px' }}>
                 <Form onSubmit={(e) => submit(e)}>
                     {RenderQuestion()}
-                    <button type={"submit"} style={{ backgroundColor: "#2a339c", color: "white", width: "80px", height: "40px", borderRadius: "5px" }}>{loading ? "Loading.." : "Submit"}</button>
+                    <div style={{textAlign:"center"}}>
+                    <button type={"submit"} style={{ backgroundColor: "#2a339c", color: "white", width: "150px", height: "40px", borderRadius: "5px" }}>{loading ? "Loading.." : "Submit"}</button>
+                    </div>
                 </Form>
             </div>
         </div>

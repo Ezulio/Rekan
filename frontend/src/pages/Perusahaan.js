@@ -65,7 +65,6 @@ export default function Perusahaan(props) {
     return (
         <div style={{ textAlign: "center", marginTop: '15%' }}>
             <h1>Perusahaan</h1>
-            <h3>{id}</h3>
             <div style={{ textAlign: "center" }}>
                 <Dropdown overlay={menu} trigger={['click']}>
                     <a className="ant-dropdown-link" href="#">
