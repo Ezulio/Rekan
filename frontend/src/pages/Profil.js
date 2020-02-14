@@ -14,15 +14,15 @@ export default function Profil() {
     useEffect(() => {
         async function getData() {
             try {
-                let data = await Axios.get('http://localhost:5000/lelang/getanswer');
+                let data = await Axios.post('http://localhost:5000/lelang/getanswer',{tableName: table.data, id_company: company.perusahaan});
                 for (var i = 0; i < data.data.jawaban[0].question.length; i++) {
                     setQuestion(data.data.jawaban[0].question)
                     setAnswer( data.data.jawaban[0].answer)
                 }
-
+                console.log(question)
             }
             catch (e) {
-                alert("error " + e)
+                console.log("error " + e)
             }
         }
         getData();
@@ -33,7 +33,7 @@ export default function Profil() {
         let answerArray  =[]
         let questionAnswerArray = []
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < question.length; i++) {
         questionArray.push({question : question[i]})
         answerArray.push({answer : answer[i]})
         }

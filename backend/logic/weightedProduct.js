@@ -76,6 +76,37 @@ function countVectorVi(countSumVectorSi, countTotalVectorSi) {
     }
     return vectorVi;
 }
+
+function countVectorVi2(countSumVectorSi, countTotalVectorSi) {
+    let hasilVi = [];
+    let vectorVi = []
+    let adjustedvi=[];
+    let keterangan = "";
+    let status = "";
+    let maksvi
+    for (let i = 0; i < countSumVectorSi.length; i++) {
+
+        hasilVi[i] = countSumVectorSi[i].value / countTotalVectorSi;
+        maksvi = Math.max(...hasilVi)
+        adjustedvi = hasilVi[i] / maksvi * 100;
+        if(adjustedvi >= 60){
+            keterangan = "Diundang";
+            status = "Lulus";
+        }else if(adjustedvi < 60){
+            keterangan = "Tidak Diundang";
+            status = "Tidak Lulus";
+        }
+        keyVi = {
+            key: countSumVectorSi[i].key,
+            value: adjustedvi,
+            status:status,
+            keterangan:keterangan
+        }
+        vectorVi.push(keyVi);
+    }
+    return vectorVi;
+}
+
 function getMaxAlt(vectorVi) {
     // console.log(vectorVi);
     let max=0 ;
@@ -89,6 +120,7 @@ function getMaxAlt(vectorVi) {
     let fin_hasil = {perusahaan:result,value:max}
     return fin_hasil; 
 }
+
 
 function hitung(kriteria, alternatif) {
     let sumOfBobot = getTotalBobot(kriteria);
@@ -105,4 +137,21 @@ function hitung(kriteria, alternatif) {
     return Max
 }
 
-module.exports=hitung;
+function hasil(kriteria, alternatif) {
+    let sumOfBobot = getTotalBobot(kriteria);
+    let prioritas = getPrioritas(kriteria, sumOfBobot);
+    let vektorSi = hitungVectorSi(alternatif, prioritas);
+    let sumVectorSi = countSumSiPerAlternatif(vektorSi);
+    let totalVectorSi = countTotalVectorSi(sumVectorSi);
+    let vectorVi = countVectorVi2(sumVectorSi, totalVectorSi);
+    // console.log(vectorVi)
+
+    // let score_fin = getMaxAlt(vectorVi[1])
+    // let coba = [Max,score_fin];
+    return vectorVi
+}
+module.exports = {
+    hitung,hasil
+}
+
+// console.log(hitung(data.kriteria, data.alternatif));

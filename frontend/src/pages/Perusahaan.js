@@ -28,7 +28,7 @@ export default function Perusahaan(props) {
         <Menu>
             {allCompany.map((data, index) =>
                 (
-                    <Menu.Item key={index} onClick={() => props.getPerusahaan(data.nama_perusahaan)}>
+                    <Menu.Item key={index} onClick={() => props.getPerusahaan(data.id_company)}>
                         <a >{data.nama_perusahaan}</a>
                     </Menu.Item>
                 )
@@ -41,11 +41,11 @@ export default function Perusahaan(props) {
         data.id_company
     ))
 
-    let test = id
     function getCompany(e) {
         let data = e.target.value
         setCompany({
-            nama_perusahaan: data
+            nama_perusahaan: data,
+            id_company : id
         });
     }
 
@@ -66,7 +66,7 @@ export default function Perusahaan(props) {
     return (
         <div style={{ textAlign: "center", marginTop: '15%' }}>
             <h1>Perusahaan</h1>
-            <h3>{test}</h3>
+            <h3>{id}</h3>
             <div style={{ textAlign: "center" }}>
                 <Dropdown overlay={menu} trigger={['click']}>
                     <a className="ant-dropdown-link" href="#">

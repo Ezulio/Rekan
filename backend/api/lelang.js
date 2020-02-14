@@ -1,7 +1,9 @@
 const express = require("express");
 const knex = require("../db/connection");
 const router = express.Router();
-const hitung = require("../logic/weightedProduct");
+const weigthed = require("../logic/weightedProduct");
+const hitung = weigthed.hitung;
+const hasil = weigthed.hasil; 
 
 
 router.get("/getdb", async (req, res, next) => {
@@ -569,6 +571,7 @@ router.post("/hasil_hitung", async (req, res, next) => {
 
 router.post("/get_profile", async (req, res, next) => {
   let tableName = req.body.tableName;
+  let insert_database = req.body.insert_database;
 
   try {
     let jawaban = await knex(tableName)
@@ -803,12 +806,43 @@ router.post("/get_profile", async (req, res, next) => {
     });
 
     let counter_fin = JSON.parse(accounting);
+    let hasil_akhir = hasil(counter_fin.kriteria, counter_fin.alternatif);
+
+    var byValue = hasil_akhir.slice(0);
+    byValue.sort(function(a,b) {
+      return b.value - a.value;
+    });
+
+console.log("ByValue: "+byValue)
+
+
+let kategori = "";
+let panjang = byValue.length;
+let lulus = panjang * 0.6;
+let array_lulus = []
+let array_gagal = []
+let array_hasil = []
+    for(let i = 0; i< panjang;i++){
+        if(i== 0 && i < lulus && i == lulus){
+            kategori = "Lulus";
+            let kat_lulus = {"Kategori":"Lulus"}
+            // array_hasil.push(byValue[i]);
+             array_hasil = Object.assign(kat_lulus, byValue[i])
+
+        }else if(i > lulus){
+          kategori= "Tidak Lulus";
+          // let kat_gagal = {"Kategori":kategori}
+          // array_hasil.push(byValue[i]);
+          // array_hasil = {kat_gagal, ...array_hasil}
+        }
+
+  }
 
     res.json({
-      pemenang: counter_fin
+      "hasil": byValue
     });
   } catch (e) {
-    const error = new Error("Kesahalan Perhitungan: " + e);
+    const error = new Error("Kesahalan Profile: " + e);
     next(error);
   }
 });

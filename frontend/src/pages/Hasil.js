@@ -11,9 +11,9 @@ export default function Hasil() {
             useEffect( () => {
                 async function getData(){
                     try{
-                        let data = await Axios.post('http://localhost:5000/rfi/getTable', {tableName:table.data});
-                        // console.log(data.id);
-                        setDataSource(data.data.table);
+                        let data = await Axios.post('http://localhost:5000/lelang/get_profile', {tableName:table.data});
+                        console.log(data);
+                        // setDataSource(data);
                     }
                     catch(e){
                         alert("Error : " + e)
@@ -27,8 +27,7 @@ export default function Hasil() {
      
         async function handleDelete(id) {
             try{
-                let deleteData = await Axios.post('http://localhost:5000/rfi/deleteData', {tableName:table.data, id: id});
-                console.log(id)
+                let deleteData = await Axios.post('http://localhost:5000/lelang/deleteData', {tableName:table.data, key:id });
             }
             catch(e){
                 alert("Error : " + e);
@@ -37,39 +36,24 @@ export default function Hasil() {
 
     const columns = [
         {
-            title: 'Id',
-            dataIndex: 'id',
-            key: 'id',
-        },
-        {
             title: 'Nama Perusahaan',
-            dataIndex: 'a_NamaPerusahaan',
-            key: 'a_NamaPerusahaan',
+            dataIndex: 'key',
+            key: 'key',
         },
         {
-            title: 'Kekayaan',
-            dataIndex: 'a_Kekayaan',
-            key: 'a_Kekayaan',
+            title: 'Nilai RFI',
+            dataIndex: 'value',
+            key: 'value',
         },
         {
-            title: 'No Telp',
-            dataIndex: 'a_NoTelp',
-            key: 'a_NoTelp',
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'Status',
         },
         {
-            title: 'PIC',
-            dataIndex: 'a_PIC',
-            key: 'a_PIC',
-        },
-        {
-            title: 'Email',
-            dataIndex: 'a_Email',
-            key: 'a_Email',
-        },
-        {
-            title: 'Nilai',
-            dataIndex: 'Nilai',
-            key: 'Nilai',
+            title: 'Keterangan',
+            dataIndex: 'Keterangan',
+            key: 'Keterangan',
         },
         {
             title: 'operation',
@@ -77,7 +61,7 @@ export default function Hasil() {
             render: (text, dataIndex) => {
                 return (
                     <>
-                        <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(dataIndex.id)}>
+                        <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(dataIndex.key)}>
                             <a>Delete</a>
                         </Popconfirm>
                     </>

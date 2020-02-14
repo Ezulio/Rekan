@@ -59,7 +59,6 @@ export default function Hitung() {
         if (soal.length != 0) {
             return soal.map(data => {
                 switch (data.type_question) {
-
                     case "radio":
                         return (<CustomInput data={data} onAnswer={answer => {
 
