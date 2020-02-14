@@ -28,7 +28,9 @@ export default function Hasil() {
      
         async function handleDelete(id) {
             try{
-                let deleteData = await Axios.post('http://localhost:5000/lelang/deleteData', {tableName:table.data, key:id });
+                let deleteData = await Axios.post('http://localhost:5000/lelang/deleteData', {tableName:table.data, id:id });
+                alert("Data berhasil dihapus, laman akan dimuat ulang")
+                window.location.replace('/')
             }
             catch(e){
                 alert("Terjadi Error pada saat akan menghapus silahkan periksa kembali lelang atau coba muat ulang laman")
@@ -36,6 +38,11 @@ export default function Hasil() {
         };
 
     const columns = [
+        {
+            title: 'No',
+            dataIndex: 'id',
+            key: 'id',
+        },
         {
             title: 'Nama Perusahaan',
             dataIndex: 'key',
@@ -62,7 +69,7 @@ export default function Hasil() {
             render: (text, dataIndex) => {
                 return (
                     <>
-                        <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(dataIndex.key)}>
+                        <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(dataIndex.id)}>
                             <a>Delete</a>
                         </Popconfirm>
                     </>

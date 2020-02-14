@@ -64,7 +64,7 @@ router.post("/deleteData", async (req, res, next) => {
   const id = req.body.id;
   try {
     await knex(tablename)
-      .where("id", id)
+      .where("id_company", id)
       .del();
     res.json({
       message: "Data Berhasil Dihapus"
@@ -652,6 +652,7 @@ router.post("/get_profile", async (req, res, next) => {
     };
 
     let allAnswer = parseData(jawaban);
+    console.log(allAnswer)
     let param = await knex.select().from("parameter_question");
     let kunci = [];
     let weight = [];
@@ -661,6 +662,10 @@ router.post("/get_profile", async (req, res, next) => {
     let perusahaan = [];
     for (let i = 0; i < allAnswer.length; i++) {
       perusahaan.push(allAnswer[i].nama_perusahaan);
+    }
+    let id = [];
+    for(let i = 0; i<allAnswer.length; i++){
+      id.push(allAnswer[i].id_company);
     }
 
     /*=======> SUM ANSWER POINT PER PARAMETER <=======*/
@@ -757,6 +762,7 @@ router.post("/get_profile", async (req, res, next) => {
       }
 
       let data = {
+        id: id[i],
         key: perusahaan[i],
         value: {
           Administrasi: administrasi,

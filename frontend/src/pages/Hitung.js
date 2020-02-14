@@ -148,7 +148,7 @@ export default function Hitung() {
             await console.log(typeof(jawaban));
             await console.log("tipe parsing: " + typeof(parsing));
             // await console.log("sukses insert");
-            //   window.location.replace('/')
+              window.location.replace('/')
             console.log(token)
             
         }

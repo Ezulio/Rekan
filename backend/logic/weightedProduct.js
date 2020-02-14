@@ -32,6 +32,7 @@ function hitungVectorSi(alternatif, prioritas) {
             hasil[i][j] = alternatif[i].value[prioritas[j].key] ** prioritas[j].value;
         }
         keySi = {
+            id: alternatif[i].id,
             key: alternatif[i].key,
             value: hasil[i]
         }
@@ -47,6 +48,7 @@ function countSumSiPerAlternatif(vektorSi) {
         for (let j = 0; j < vektorSi[i].value.length; j++) {
             hasil *= vektorSi[i].value[j]
             keySumSi = {
+                id: vektorSi[i].id,
                 key: vektorSi[i].key,
                 value: hasil
             }
@@ -69,6 +71,7 @@ function countVectorVi(countSumVectorSi, countTotalVectorSi) {
 
         hasilVi[i] = countSumVectorSi[i].value / countTotalVectorSi;
         keyVi = {
+            id: countSumVectorSi[i].id,
             key: countSumVectorSi[i].key,
             value: hasilVi[i]
         }
@@ -97,6 +100,7 @@ function countVectorVi2(countSumVectorSi, countTotalVectorSi) {
             status = "Tidak Lulus";
         }
         keyVi = {
+            id: countSumVectorSi[i].id,
             key: countSumVectorSi[i].key,
             value: adjustedvi,
             status:status,

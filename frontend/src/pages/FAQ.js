@@ -8,6 +8,7 @@ import step_5 from '../image/Step_5.PNG';
 import Angka from '../image/Angka_Only.PNG';
 import Nominal from '../image/Nominal.PNG';
 import Error from '../image/Error.PNG';
+import step_3D from '../image/Step_3D.PNG';
 const { Panel } = Collapse;
 
 export default function FAQ() {
@@ -58,6 +59,14 @@ export default function FAQ() {
                     <img src={step_4} style={{ width: "550px", height: "400px" }}></img>
                     <p>Step 5 : Pilih Tab Hasil untuk melihat hasil nilai, status dan keterangan</p>
                     <img src={step_5} style={{ width: "550px", height: "400px" }}></img>
+                </Panel>
+                <Panel header="Tutorial: Cara Menghapus Data Penilaian" key="4">
+                    <p>Step 1 : Pilih Tab Rekan lalu Pilih lelang</p>
+                    <img src={step_1} style={{ width: "550px", height: "400px" }}></img>
+                    <p>Step 2 : Tekan Delete pada tabel</p>
+                    <img src={step_5} style={{ width: "550px", height: "400px" }}></img>
+                    <p>Step 3 : Tekan Ok pada popup konfirmasi</p>
+                    <img src={step_3D} style={{ width: "550px", height: "400px" }}></img>
                 </Panel>
                 <Panel header="Troubleshoot: Terjadi Error dan Bagaimana cara mengatasinya" key="6">
                     <ul>
