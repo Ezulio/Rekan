@@ -45,7 +45,6 @@ export default function Perusahaan(props) {
         let data = e.target.value
         setCompany({
             nama_perusahaan: data,
-            id_company : id
         });
     }
 

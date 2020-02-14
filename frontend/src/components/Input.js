@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Radio, Input, Form } from 'antd';
 import Axios from 'axios';
-import CompanyContext from '../util/UserContext';
+import CompanyContext from '../util/CompanyContext';
 
 
 
@@ -13,7 +13,7 @@ export default function CustomInput(props) {
     let [keterangan, setKet] = useState('');
     let [ID,setID] = useState('');
     let[company, setCompany] = useState({});
-    const perusahaan = useContext(CompanyContext);
+    const tes = useContext(CompanyContext);
 
     // const company = useContext(CompanyContext);
     useEffect( ()=>{
@@ -58,9 +58,9 @@ export default function CustomInput(props) {
 
                         }
                         for (let i = 0; i < company.length; i++) {
-                            if (perusahaan.data === company[i].nama_perusahaan) {
+                            if (tes.perusahaan === company[i].nama_perusahaan) {
 
-                                comId = company[i].id_company
+                                comId = company[i].id_company;
                             }
                         }
 
@@ -69,7 +69,7 @@ export default function CustomInput(props) {
                         // }
                         
                         let answer={
-                            id_company : comId,
+                            id_company : tes.perusahaan,
                             id_variablepoint: varId,
                             answer: data.target.value,
                         }
@@ -80,6 +80,7 @@ export default function CustomInput(props) {
                         // const varId = getVariableId(data.target.value)   
                         // setTemp(data.target.value);
                         props.onAnswer(answer)
+                        console.log(answer)
                         
                         
                         // setAnswer(answer);

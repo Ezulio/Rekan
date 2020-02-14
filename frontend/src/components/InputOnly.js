@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import {  Input, Form } from 'antd';
 import Axios from 'axios';
-import CompanyContext from '../util/UserContext';
+import CompanyContext from '../util/CompanyContext';
 
 
 export default function InputOnly (props){
@@ -9,7 +9,7 @@ export default function InputOnly (props){
     let [temp,setTemp]=useState('');
     let [answer,setAnswer]=useState({});
     let[company, setCompany] = useState({});
-    const perusahaan = useContext(CompanyContext);
+    const tes = useContext(CompanyContext);
     
 
     
@@ -42,9 +42,9 @@ export default function InputOnly (props){
                  let varId = 0;
                  let comId = 0;
                         for (let i = 0; i < company.length; i++) {
-                            if (perusahaan.data === company[i].nama_perusahaan) {
+                            if (tes.perusahaan === company[i].id_company) {
 
-                                comId = company[i].id_company
+                                comId = company[i].id_company;
                             }
                         }
 
@@ -56,12 +56,13 @@ export default function InputOnly (props){
 
                         }
                  let answer = {
-                     id_company : comId,
+                     id_company : tes.perusahaan,
                     id_variablepoint:varId,
                      answer:data.target.value
                  }
                  props.onAnswer(answer);
                 // setAnswer(answer);
+                console.log(tes.perusahaan)
                 
                  }}
             >
