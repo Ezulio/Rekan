@@ -22,7 +22,8 @@ export default function Profil() {
                 console.log(question)
             }
             catch (e) {
-                console.log("error " + e)
+                alert("Silahkan Pilih Lelang dan Perusahaan!")
+                window.location.replace('/')
             }
         }
         getData();

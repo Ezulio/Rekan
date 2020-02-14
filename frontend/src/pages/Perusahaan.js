@@ -18,7 +18,7 @@ export default function Perusahaan(props) {
                 setAllCompany(data.data.list_company);
             }
             catch (e) {
-                alert("error " + e)
+                alert("Terjadi Error, silahkan periksa kembali koneksi internet anda atau muat ulang laman")
             }
         }
         getData();
@@ -57,7 +57,7 @@ export default function Perusahaan(props) {
             window.location.replace('/')
         }
         catch (e) {
-            alert("error " + e)
+            alert("Terjadi Error saat akan mensubmit, silahkan muat ulang laman")
         }
         setLoading(false);
     }

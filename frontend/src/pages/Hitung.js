@@ -151,7 +151,7 @@ export default function Hitung() {
             
         }
         catch (e) {
-            alert("error " + e)
+            alert("Terjadi Error, Silahkan cek Kembali Perusahaan atau Silahkan Muat Ulang Kembali")
         }
         setLoading(false);
     }

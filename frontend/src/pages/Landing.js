@@ -51,7 +51,7 @@ export default function Landing(props) {
             window.location.replace('/')
         }
         catch (e) {
-            alert("error " + e)
+            alert("Terjadi Error, silahkan cek koneksi atau muat ulang laman")
         }
         setLoading(false);
     }

@@ -31,7 +31,7 @@ export default function Hasil() {
                 let deleteData = await Axios.post('http://localhost:5000/lelang/deleteData', {tableName:table.data, key:id });
             }
             catch(e){
-                alert("Error : " + e);
+                alert("Terjadi Error pada saat akan menghapus silahkan periksa kembali lelang atau coba muat ulang laman")
             }
         };
 
