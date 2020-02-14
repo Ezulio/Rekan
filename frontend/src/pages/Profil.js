@@ -14,7 +14,7 @@ export default function Profil() {
     useEffect(() => {
         async function getData() {
             try {
-                let data = await Axios.post('http://localhost:5000/lelang/getanswer',{tableName: table.data, id_company: company.perusahaan});
+                let data = await Axios.post('http://localhost:5000/lelang/getanswer',{tableName: table.data, id_company: company.perusahaan.id});
                 for (var i = 0; i < data.data.jawaban[0].question.length; i++) {
                     setQuestion(data.data.jawaban[0].question)
                     setAnswer( data.data.jawaban[0].answer)
@@ -69,7 +69,7 @@ export default function Profil() {
         }s
         </tableContext.Provider> */}
             <h1 style={{ textAlign: "center" }}>Tabel {table.data} </h1>
-            <h1 style={{ textAlign: "center" }}>Profile {company.perusahaan} </h1>
+            <h1 style={{ textAlign: "center" }}>Profile {company.perusahaan.nama} </h1>
             <Form style={{ padding: '20px' }}>
                 {renderSoal()}
             </Form>

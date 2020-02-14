@@ -28,7 +28,7 @@ export default function Perusahaan(props) {
         <Menu>
             {allCompany.map((data, index) =>
                 (
-                    <Menu.Item key={index} onClick={() => props.getPerusahaan(data.id_company)}>
+                    <Menu.Item key={index} onClick={() => props.getPerusahaan({id: data.id_company, nama: data.nama_perusahaan})}>
                         <a >{data.nama_perusahaan}</a>
                     </Menu.Item>
                 )

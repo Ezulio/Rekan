@@ -48,7 +48,7 @@ export default function InputOnly (props){
 
                         }
                  let answer = {
-                     id_company : tes.perusahaan,
+                     id_company : tes.perusahaan.id,
                     id_variablepoint:varId,
                      answer:data.target.value
                  }

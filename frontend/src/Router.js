@@ -34,7 +34,7 @@ export default function Router() {
                 <Route path = '/Hitung' component = { Hitung } />
                 <Route path  = '/Perusahaan' exact render = {(props) => <Perusahaan 
                 getPerusahaan = {(perusahaan => {setPerusahaan(perusahaan)
-                })}/> } />
+                })}/> }/>
                 <Route path  = '/Profil' component = { Profil }/>
                 <Route path = '/Hasil' component = { Hasil } /> 
                 <Route path = '/FAQ' component = { FAQ }/>

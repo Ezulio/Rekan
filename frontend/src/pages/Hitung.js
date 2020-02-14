@@ -158,7 +158,7 @@ export default function Hitung() {
 
     return (
         <div>
-            <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.perusahaan}</h1>
+            <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.perusahaan.nama}</h1>
             <div style={{ padding: '30px' }}>
                 <Form onSubmit={(e) => submit(e)}>
                     {RenderQuestion()}
