@@ -58,7 +58,7 @@ export default function Landing(props) {
 
     return (
         <div style={{ textAlign: "center", marginTop: '15%' }}>
-            <h1 style={{ textAlign: "center" }}>Welcome to Manhattan Project</h1>
+            <h1 style={{ textAlign: "center" }}>Welcome to Rekan BTS</h1>
             <div style={{ textAlign: "center" }}>
                 {/* Select Table */}
                 <Dropdown overlay={menu} trigger={['click']}>
