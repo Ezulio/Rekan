@@ -23,8 +23,9 @@ export default function FAQ() {
                     aplikasi ini dapat bekerja</p>
                         </li>
                         <li>
-                            <p>Aplikasi ini sudah berada di versi stabil, namun masih banyak terdapat kekurangan dan
-                     banyak penambahan - penambahan fitur. Mohon pengertian terhadap kekurangannya</p>
+                            <p>Aplikasi ini sudah berada di versi stabil, namun karena keterbatasan kemampuan dan waktu
+                            masih banyak terdapat fitur - fitur yang kurang dan banyak fitur - fitur yang harus
+                             ditambahkan kedepannya. Mohon pengertian terhadap kekurangannya</p>
                         </li>
                         <li>
                             <p>Dalam aplikasi ini perlu banyak untuk memilih lelang dan aplikasi, dan setiap terjadi refresh / muat Ulang
@@ -57,12 +58,6 @@ export default function FAQ() {
                     <img src={step_4} style={{ width: "550px", height: "400px" }}></img>
                     <p>Step 5 : Pilih Tab Hasil untuk melihat hasil nilai, status dan keterangan</p>
                     <img src={step_5} style={{ width: "550px", height: "400px" }}></img>
-                </Panel>
-                <Panel header="This is panel header 3" key="4">
-                    <p>testint</p>
-                </Panel>
-                <Panel header="This is panel header 3" key="5">
-                    <p>testint</p>
                 </Panel>
                 <Panel header="Troubleshoot: Terjadi Error dan Bagaimana cara mengatasinya" key="6">
                     <ul>

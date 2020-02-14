@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Form, Button, Popconfirm, Icon, Input, Radio, Collapse, Checkbox } from 'antd';
 import Axios from 'axios';
 import CompanyContext from '../util/CompanyContext';
+import UserContext from '../util/UserContext';
 import InputOnly from '../components/InputOnly';
 import CustomInput from '../components/Input';
 
@@ -15,10 +16,11 @@ export default function Hitung() {
     let [answer, setAnswer] = useState("");
     let [allCompany,setAllCompany]=useState([]);
 
-    let [coba, setCoba] = useState([]);
+    let [jawaban, setJawaban] = useState([]);
     let [coba2, setCoba2] = useState([]);
 
     const company = useContext(CompanyContext);
+    const user = useContext(UserContext);
     let answertemp = []
 
     useEffect(() => {
@@ -79,45 +81,45 @@ export default function Hitung() {
                             
                             
                             
-                            if(coba.length!=0){
-                                for(let i =0;i<coba.length;i++){
-                                    if (coba[i].id_variablepoint===answer.id_variablepoint){
-                                        coba[i].answer=answer.answer;
+                            if(jawaban.length!=0){
+                                for(let i =0;i<jawaban.length;i++){
+                                    if (jawaban[i].id_variablepoint===answer.id_variablepoint){
+                                        jawaban[i].answer=answer.answer;
                                         break;
                                     }
-                                    else if (i<coba.length-1){
+                                    else if (i<jawaban.length-1){
                                         continue;
                                     }
                                     else{
-                                        setCoba([...coba,answer])
+                                        setJawaban([...jawaban,answer])
                                     }                       
                                 }
                             }
                             else{
                                 console.log('add');
-                                setCoba([...coba,answer])
+                                setJawaban([...jawaban,answer])
                             }
                            
                         }} />)
                     case "input_only":
                         return (<InputOnly data={data} onAnswer={answer => {
-                            if(coba.length!=0){
-                                for(let i =0;i<coba.length;i++){
-                                    if (coba[i].id_variablepoint===answer.id_variablepoint){
-                                        coba[i].answer=answer.answer;
+                            if(jawaban.length!=0){
+                                for(let i =0;i<jawaban.length;i++){
+                                    if (jawaban[i].id_variablepoint===answer.id_variablepoint){
+                                        jawaban[i].answer=answer.answer;
                                         break;
                                     }
-                                    else if (i<coba.length-1){
+                                    else if (i<jawaban.length-1){
                                         continue;
                                     }
                                     else{
-                                        setCoba([...coba,answer])
+                                        setJawaban([...jawaban,answer])
                                     }                       
                                 }
                             }
                             else{
                                 console.log('add');
-                                setCoba([...coba,answer])
+                                setJawaban([...jawaban,answer])
                             }
                            
                         }} />)
@@ -139,15 +141,15 @@ export default function Hitung() {
         e.preventDefault();
         try {
             
-            var jawaban = JSON.stringify({jawaban : coba});
-            var parsing = JSON.parse(jawaban)
-            const token = await Axios.post('http://localhost:5000/lelang/insert_answer', parsing);
+            var stringify = JSON.stringify({jawaban});
+            var ans = JSON.parse(stringify)
+            const token = await Axios.post('http://localhost:5000/lelang/insert_answer', {jawaban,tableName:user.data});
             // localStorage.setItem('token',token.data.token);
             await console.log(typeof(jawaban));
             await console.log("tipe parsing: " + typeof(parsing));
             // await console.log("sukses insert");
             //   window.location.replace('/')
-            
+            console.log(token)
             
         }
         catch (e) {
@@ -158,6 +160,7 @@ export default function Hitung() {
 
     return (
         <div>
+            <h1 style={{ textAlign: 'center' }}>Lelang {user.data}</h1>
             <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.perusahaan.nama}</h1>
             <div style={{ padding: '30px' }}>
                 <Form onSubmit={(e) => submit(e)}>

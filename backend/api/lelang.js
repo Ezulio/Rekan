@@ -94,9 +94,9 @@ router.post("/insert_company", async (req, res, next) => {
 
 router.post("/insert_answer", async (req, res, next) => {
   const jawaban = req.body.jawaban;
-
+  const tablename =  req.body.tableName;
   try {
-    const tambah = await knex("answer").insert(jawaban);
+    const tambah = await knex(tablename).insert(jawaban);
     res.json({
       data: tambah
     });
