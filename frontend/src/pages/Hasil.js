@@ -40,8 +40,9 @@ export default function Hasil() {
     const columns = [
         {
             title: 'No',
-            dataIndex: 'id',
-            key: 'id',
+            // dataIndex: 'id',
+            key: 'index',
+            render : (text, record, index) => index+1,
         },
         {
             title: 'Nama Perusahaan',

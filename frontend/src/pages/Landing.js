@@ -12,8 +12,7 @@ export default function Landing(props) {
         async function getData() {
             try {
                 let data = await Axios.get('http://localhost:5000/lelang/getDb');
-                setAllTable(data.data.db);
-
+                setAllTable(data.data.db[0]);
             }
             catch (e) {
                 console.log(e);

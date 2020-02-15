@@ -8,10 +8,10 @@ const hasil = weigthed.hasil;
 
 router.get("/getdb", async (req, res, next) => {
   try {
-    let getdb = await knex
-      .select("TABLE_NAME")
-      .from("INFORMATION_SCHEMA.TABLES")
-      .where("TABLE_SCHEMA", "=", "rfi");
+    let getdb = await knex.raw("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='rfi'AND NOT TABLE_NAME='company' AND NOT TABLE_NAME='question' AND NOT TABLE_NAME='variablepoint' AND NOT TABLE_NAME='answer' AND NOT TABLE_NAME='parameter_question'")
+      // .select("TABLE_NAME")
+      // .from("INFORMATION_SCHEMA.TABLES")
+      // .where("TABLE_SCHEMA", "=", "rfi");
     res.json({
       db: getdb
     });
@@ -824,7 +824,7 @@ router.post("/get_profile", async (req, res, next) => {
 // console.log("ByValue: "+byValue)
 
     res.json({
-      "hasil": hasil_akhir
+      "hasil": byValue
     });
   } catch (e) {
     const error = new Error("Kesahalan Profile: " + e);

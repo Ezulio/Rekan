@@ -19,13 +19,10 @@ export default function Profil() {
                     setQuestion(data.data.jawaban[0].question)
                     setAnswer( data.data.jawaban[0].answer)
                 }
-                console.log(question)
-                console.log(data)
             }
             catch (e) {
                 alert("Silahkan Pilih Lelang dan Perusahaan atau Inputkan data perusahaan!")
-                console.log(company.perusahaan.id)
-                console.log(table.data)
+                window.location.replace('/')
             }
         }
         getData();
@@ -52,8 +49,8 @@ export default function Profil() {
     function renderHtml(item) {
         for (let i = 0; i < item.length; i++) {
             for (let j = 0; j < i; j++) {
-        return (
-            <div>
+                    return (
+                        <div>
                 <Form.Item>
                     <h3 style={{ textDecoration: "bold" }}>{item[j].question}</h3>
                     <Input style={{ width: '20%', textDecoration: "bold", color: "Black" }}
