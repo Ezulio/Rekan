@@ -6,13 +6,13 @@ export default function Hasil() {
     
     let [modal, setModal] = useState(false);
     let [dataSource, setDataSource] = useState();
+    const table = useContext(TableContext);
 
 
             useEffect( () => {
                 async function getData(){
                     try{
                         let data = await Axios.post('http://localhost:5000/lelang/get_profile', {tableName:table.data});
-                        console.log(data.data.hasil);
                         setDataSource(data.data.hasil);
                     }
                     catch{
@@ -78,7 +78,7 @@ export default function Hasil() {
             }
         },
     ];
-    const table = useContext(TableContext);
+    
 
     return (
         <div style={{ textAlign: "center" }}>

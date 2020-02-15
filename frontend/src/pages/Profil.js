@@ -20,10 +20,12 @@ export default function Profil() {
                     setAnswer( data.data.jawaban[0].answer)
                 }
                 console.log(question)
+                console.log(data)
             }
             catch (e) {
                 alert("Silahkan Pilih Lelang dan Perusahaan atau Inputkan data perusahaan!")
-                window.location.replace('/')
+                console.log(company.perusahaan.id)
+                console.log(table.data)
             }
         }
         getData();
@@ -64,10 +66,6 @@ export default function Profil() {
 
     return (
         <div>
-        {/* <tableContext.Provider>
-        {tableName =>
-        }s
-        </tableContext.Provider> */}
             <h1 style={{ textAlign: "center" }}>Tabel {table.data} </h1>
             <h1 style={{ textAlign: "center" }}>Profile {company.perusahaan.nama} </h1>
             <Form style={{ padding: '20px' }}>

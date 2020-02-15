@@ -48,16 +48,20 @@ export default function FAQ() {
                         </li>
                     </ul>
                 </Panel>
-                <Panel header="Notification: Pemberitahuan Seputar Memilih Lelang" key="3">
+                <Panel header="Notification: Pemberitahuan Seputar Lelang" key="3">
                     <ul>
                         <li>
                             <p>Dalam Page Rekan, ketika memilih lelang dimohon untuk tidak memilih pilihan apapun <strong>(kotak merah)</strong>
                              selain yang telah dibuat oleh user dan answer.</p>
                             <img src={Pilih} style={{ width: "550px", height: "400px" }}></img>
                         </li>
+                        <li>
+                            <p>Dalam Page Rekan, ketika membuat lelang baru, dimohon untuk membuat lelang tanpa spasi. Apabila diperlukan spasi,
+                            silahkan menggunakan _ (underscore)</p>
+                        </li>
                     </ul>
                 </Panel>
-                <Panel header="Tutorial: Cara Penggunaan Dasar" key="4">
+                <Panel header="Tutorial: Tata Cara Penggunaan Dasar" key="4">
                     <p>Step 1 : Pilih Tab Rekan lalu Pilih lelang atau buat lelang baru</p>
                     <img src={step_1} style={{ width: "550px", height: "400px" }}></img>
                     <p>Step 2 : Pilih Tab Perusahaan lalu pilih perusahaan atau buat perusahaan baru</p>
@@ -69,7 +73,7 @@ export default function FAQ() {
                     <p>Step 5 : Pilih Tab Hasil untuk melihat hasil nilai, status dan keterangan</p>
                     <img src={step_5} style={{ width: "550px", height: "400px" }}></img>
                 </Panel>
-                <Panel header="Tutorial: Cara Menghapus Data Penilaian" key="5">
+                <Panel header="Tutorial: Tata Cara Menghapus Data Penilaian" key="5">
                     <p>Step 1 : Pilih Tab Rekan lalu Pilih lelang</p>
                     <img src={step_1} style={{ width: "550px", height: "400px" }}></img>
                     <p>Step 2 : Tekan Delete pada tabel</p>

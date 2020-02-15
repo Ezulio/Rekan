@@ -11,7 +11,7 @@ function getPrioritas(kriteria, totalBobot) {
     let sumOfBobot = totalBobot;
     let priorities = [];
     for (let i = 0; i < kriteria.length; i++) {
-        value = kriteria[i].bobot / sumOfBobot
+        value = kriteria[i].bobot / sumOfBobot;
         priority = {
             key: kriteria[i].key,
             value: value
@@ -38,7 +38,7 @@ function hitungVectorSi(alternatif, prioritas) {
         }
         vektorSi.push(keySi);
     }
-
+    console.log(keySi)
     return vektorSi
 }
 function countSumSiPerAlternatif(vektorSi) {
@@ -86,11 +86,12 @@ function countVectorVi2(countSumVectorSi, countTotalVectorSi) {
     let adjustedvi=[];
     let keterangan = "";
     let status = "";
-    let maksvi
+    let maksvi;
     for (let i = 0; i < countSumVectorSi.length; i++) {
-
         hasilVi[i] = countSumVectorSi[i].value / countTotalVectorSi;
-        maksvi = Math.max(...hasilVi)
+        maksvi = Math.max(...hasilVi);
+    }
+    for (let i = 0; i < countSumVectorSi.length; i++) {
         adjustedvi = hasilVi[i] / maksvi * 100;
         if(adjustedvi >= 60){
             keterangan = "Diundang";
