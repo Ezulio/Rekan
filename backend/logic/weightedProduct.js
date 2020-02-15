@@ -1,4 +1,4 @@
-
+//Mendapatkan Total bobot kriteria
 function getTotalBobot(kriteria) {
     let sumOfBobot = 0;
     for (let i = 0; i < kriteria.length; i++) {
@@ -7,6 +7,7 @@ function getTotalBobot(kriteria) {
     return sumOfBobot;
 }
 
+//Menghitung prioritas kriteria
 function getPrioritas(kriteria, totalBobot) {
     let sumOfBobot = totalBobot;
     let priorities = [];
@@ -22,6 +23,7 @@ function getPrioritas(kriteria, totalBobot) {
     return priorities;
 }
 
+//Menghitung vektor Si per alternatif
 function hitungVectorSi(alternatif, prioritas) {
     let vektorSi = [];
     let hasil = []
@@ -39,8 +41,10 @@ function hitungVectorSi(alternatif, prioritas) {
         vektorSi.push(keySi);
     }
     console.log(keySi)
-    return vektorSi
+    return vektorSi;
 }
+
+//Menghitung total Si per alternatif
 function countSumSiPerAlternatif(vektorSi) {
     let sumVektorSi = []
     for (let i = 0; i < vektorSi.length; i++) {
@@ -57,6 +61,8 @@ function countSumSiPerAlternatif(vektorSi) {
     }
     return sumVektorSi;
 }
+
+//Menghitung total Si semua alternatif
 function countTotalVectorSi(sumVektorSi) {
     let totalVectorSi = 0;
     for (let i = 0; i < sumVektorSi.length; i++) {
@@ -64,6 +70,8 @@ function countTotalVectorSi(sumVektorSi) {
     }
     return totalVectorSi;
 }
+
+//Menghitung vektor Vi untuk mendapatkan 1 alternatif pemenang
 function countVectorVi(countSumVectorSi, countTotalVectorSi) {
     let hasilVi = [];
     let vectorVi = []
@@ -80,10 +88,11 @@ function countVectorVi(countSumVectorSi, countTotalVectorSi) {
     return vectorVi;
 }
 
+//Menghitung vektor Vi untuk mendapatkan semua alternatif dan nilainya
 function countVectorVi2(countSumVectorSi, countTotalVectorSi) {
     let hasilVi = [];
     let vectorVi = []
-    let adjustedvi=[];
+    let adjustedvi = [];
     let keterangan = "";
     let status = "";
     let maksvi;
@@ -93,10 +102,10 @@ function countVectorVi2(countSumVectorSi, countTotalVectorSi) {
     }
     for (let i = 0; i < countSumVectorSi.length; i++) {
         adjustedvi = hasilVi[i] / maksvi * 100;
-        if(adjustedvi >= 60){
+        if (adjustedvi >= 60) {
             keterangan = "Diundang";
             status = "Lulus";
-        }else if(adjustedvi < 60){
+        } else if (adjustedvi < 60) {
             keterangan = "Tidak Diundang";
             status = "Tidak Lulus";
         }
@@ -104,29 +113,29 @@ function countVectorVi2(countSumVectorSi, countTotalVectorSi) {
             id: countSumVectorSi[i].id,
             key: countSumVectorSi[i].key,
             value: adjustedvi,
-            status:status,
-            keterangan:keterangan
+            status: status,
+            keterangan: keterangan
         }
         vectorVi.push(keyVi);
     }
     return vectorVi;
 }
 
+//Mencari alternatif dengan nilai tertinggi
 function getMaxAlt(vectorVi) {
-    // console.log(vectorVi);
-    let max=0 ;
+    let max = 0;
     let result;
-    for (let i = 0; i < vectorVi.length; i++){
-       if (vectorVi[i].value > max){
-           max += vectorVi[i].value;
-           result = vectorVi[i].key;
-       }
+    for (let i = 0; i < vectorVi.length; i++) {
+        if (vectorVi[i].value > max) {
+            max += vectorVi[i].value;
+            result = vectorVi[i].key;
+        }
     }
-    let fin_hasil = {perusahaan:result,value:max}
-    return fin_hasil; 
+    let fin_hasil = { perusahaan: result, value: max }
+    return fin_hasil;
 }
 
-
+//Fungsi utama dengan return 1 alternatif pemenang
 function hitung(kriteria, alternatif) {
     let sumOfBobot = getTotalBobot(kriteria);
     let prioritas = getPrioritas(kriteria, sumOfBobot);
@@ -139,9 +148,10 @@ function hitung(kriteria, alternatif) {
 
     // let score_fin = getMaxAlt(vectorVi[1])
     // let coba = [Max,score_fin];
-    return Max
+    return Max;
 }
 
+//Fungsi utama dengan return semua alternatif dengan nilainya
 function hasil(kriteria, alternatif) {
     let sumOfBobot = getTotalBobot(kriteria);
     let prioritas = getPrioritas(kriteria, sumOfBobot);
@@ -153,10 +163,9 @@ function hasil(kriteria, alternatif) {
 
     // let score_fin = getMaxAlt(vectorVi[1])
     // let coba = [Max,score_fin];
-    return vectorVi
+    return vectorVi;
 }
 module.exports = {
-    hitung,hasil
+    hitung, hasil
 }
 
-// console.log(hitung(data.kriteria, data.alternatif));

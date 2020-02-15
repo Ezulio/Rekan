@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Axios from 'axios';
-import { Menu, Dropdown, Icon, Button, Input } from 'antd';
+import { Menu, Dropdown, Icon, Input } from 'antd';
 import TableContext from '../util/UserContext';
 export default function Landing(props) {
 

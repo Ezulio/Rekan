@@ -14,10 +14,10 @@ export default function Profil() {
     useEffect(() => {
         async function getData() {
             try {
-                let data = await Axios.post('http://localhost:5000/lelang/getanswer',{tableName: table.data, id_company: company.perusahaan.id});
+                let data = await Axios.post('http://localhost:5000/lelang/getanswer', { tableName: table.data, id_company: company.perusahaan.id });
                 for (var i = 0; i < data.data.jawaban[0].question.length; i++) {
                     setQuestion(data.data.jawaban[0].question)
-                    setAnswer( data.data.jawaban[0].answer)
+                    setAnswer(data.data.jawaban[0].answer)
                 }
             }
             catch (e) {
@@ -30,18 +30,18 @@ export default function Profil() {
 
     function renderSoal() {
         let questionArray = []
-        let answerArray  =[]
+        let answerArray = []
         let questionAnswerArray = []
 
         for (let i = 0; i < question.length; i++) {
-        questionArray.push({question : question[i]})
-        answerArray.push({answer : answer[i]})
+            questionArray.push({ question: question[i] })
+            answerArray.push({ answer: answer[i] })
         }
-        
+
         const zip = (arr, ...arrs) => {
             return arr.map((val, i) => arrs.reduce((a, arr) => [...a, arr[i]], [val]));
-          }
-        questionAnswerArray =  zip(questionArray, answerArray)
+        }
+        questionAnswerArray = zip(questionArray, answerArray)
 
         return questionAnswerArray.map(item => renderHtml(item));
     }
@@ -49,16 +49,17 @@ export default function Profil() {
     function renderHtml(item) {
         for (let i = 0; i < item.length; i++) {
             for (let j = 0; j < i; j++) {
-                    return (
-                        <div>
-                <Form.Item>
-                    <h3 style={{ textDecoration: "bold" }}>{item[j].question}</h3>
-                    <Input style={{ width: '20%', textDecoration: "bold", color: "Black" }}
-                        value={item[i].answer} disabled></Input>
-                </Form.Item>
-            </div>
-        )
-            }}
+                return (
+                    <div>
+                        <Form.Item>
+                            <h3 style={{ textDecoration: "bold" }}>{item[j].question}</h3>
+                            <Input style={{ width: '20%', textDecoration: "bold", color: "Black" }}
+                                value={item[i].answer} disabled></Input>
+                        </Form.Item>
+                    </div>
+                )
+            }
+        }
     }
 
     return (

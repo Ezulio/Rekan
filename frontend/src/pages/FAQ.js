@@ -9,7 +9,6 @@ import Angka from '../image/Angka_Only.PNG';
 import Nominal from '../image/Nominal.PNG';
 import Error from '../image/Error.PNG';
 import step_3D from '../image/Step_3D.PNG';
-import Pilih from '../image/Pilih.PNG';
 import Range from '../image/Range.PNG';
 import Choose from '../image/ChooseOne.PNG';
 import NoInput_Angka from '../image/NoInput_Angka.PNG';
@@ -102,7 +101,14 @@ export default function FAQ() {
                     <p>Step 3 : Tekan Ok pada popup konfirmasi</p>
                     <img src={step_3D} style={{ width: "550px", height: "400px" }}></img>
                 </Panel>
-                <Panel header="Troubleshoot: Terjadi Error dan Bagaimana cara mengatasinya" key="6">
+                <Panel header="Troubleshoot: Saya ingin memuat ulang laman?" key="6">
+                    <ul>
+                        <li>
+                            <p>Apabila anda ingin memuat ulang, silahkan tekan Ctrl + R </p>
+                        </li>
+                    </ul>
+                </Panel>
+                <Panel header="Troubleshoot: Terjadi Error dan Bagaimana cara mengatasinya" key="7">
                     <ul>
                         <li>
                             <p>Ketika terjadi Error ataupun data tidak muncul, mohon untuk mengecek kembali apakah sudah memilih lelang atau perusahaan

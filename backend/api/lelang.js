@@ -3,15 +3,12 @@ const knex = require("../db/connection");
 const router = express.Router();
 const weigthed = require("../logic/weightedProduct");
 const hitung = weigthed.hitung;
-const hasil = weigthed.hasil; 
+const hasil = weigthed.hasil;
 
-
+//Mendapatkan List Table
 router.get("/getdb", async (req, res, next) => {
   try {
     let getdb = await knex.raw("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='rfi'AND NOT TABLE_NAME='company' AND NOT TABLE_NAME='question' AND NOT TABLE_NAME='variablepoint' AND NOT TABLE_NAME='answer' AND NOT TABLE_NAME='parameter_question'")
-      // .select("TABLE_NAME")
-      // .from("INFORMATION_SCHEMA.TABLES")
-      // .where("TABLE_SCHEMA", "=", "rfi");
     res.json({
       db: getdb
     });
@@ -21,34 +18,20 @@ router.get("/getdb", async (req, res, next) => {
   }
 });
 
-router.post("/gettable", async (req, res, next) => {
-  try {
-    let gettable = await knex
-      .select("*")
-      .from(req.body.tableName)
-      .orderBy("Nilai", "desc");
-    res.json({
-      table: gettable
-    });
-  } catch (e) {
-    const err_gettable = new Error("Kesalahan Database " + e);
-    next(err_gettable);
-  }
-});
-
+//Membuat table baru 
 router.post("/newtable", async (req, res, next) => {
   const tablename = req.body.tableName;
   try {
     await knex.raw("CREATE TABLE " + tablename + " LIKE answer");
     await knex.raw(
       "ALTER TABLE " +
-        tablename +
-        " ADD FOREIGN KEY (id_company) REFERENCES company(id_company)"
+      tablename +
+      " ADD FOREIGN KEY (id_company) REFERENCES company(id_company)"
     );
     await knex.raw(
       "ALTER TABLE " +
-        tablename +
-        " ADD FOREIGN KEY (id_variablepoint) REFERENCES variablepoint(id_variablepoint)"
+      tablename +
+      " ADD FOREIGN KEY (id_variablepoint) REFERENCES variablepoint(id_variablepoint)"
     );
     res.json({
       message: "Table Berhasil Dibuat"
@@ -59,6 +42,7 @@ router.post("/newtable", async (req, res, next) => {
   }
 });
 
+//Delete hasil input perusahaan
 router.post("/deleteData", async (req, res, next) => {
   const tablename = req.body.tableName;
   const id = req.body.id;
@@ -75,6 +59,7 @@ router.post("/deleteData", async (req, res, next) => {
   }
 });
 
+//Membuat perusahaan baru
 router.post("/insert_company", async (req, res, next) => {
   const perusahaan = req.body.nama_perusahaan;
 
@@ -92,9 +77,10 @@ router.post("/insert_company", async (req, res, next) => {
   }
 });
 
+//Memasukkan hasil input perusahaan 
 router.post("/insert_answer", async (req, res, next) => {
   const jawaban = req.body.jawaban;
-  const tablename =  req.body.tableName;
+  const tablename = req.body.tableName;
   try {
     const tambah = await knex(tablename).insert(jawaban);
     res.json({
@@ -106,6 +92,7 @@ router.post("/insert_answer", async (req, res, next) => {
   }
 });
 
+//Mengambil pertanyaan
 router.get("/getquestion", async (req, res, next) => {
   try {
     let pertanyaan = await knex("variablepoint")
@@ -183,6 +170,7 @@ router.get("/getquestion", async (req, res, next) => {
   }
 });
 
+//Mengambil perusahaan untuk dibandingkan dengan perusahaan yang dipilih
 router.get("/getcompany", async (req, res, next) => {
   try {
     let profil = await knex.select().table("company");
@@ -195,43 +183,17 @@ router.get("/getcompany", async (req, res, next) => {
   }
 });
 
-router.get("/get_kriteria", async (req, res, next) => {
-  try {
-    const parameter = await knex.select().table("parameter_question");
-    res.json({
-      syarat: parameter
-    });
-  } catch (e) {
-    const error = new Error("Terjadi Error: " + e);
-    next(error);
-  }
-});
-
-router.post("/deleteanswer", async (req, res, next) => {
-  const id_answer = req.body.id_answer;
-  try {
-    await knex("answer")
-      .where("id_answer", id_answer)
-      .del();
-    res.json({
-      message: "Data Berhasil Dihapus"
-    });
-  } catch (e) {
-    const err_delete = new Error("Kesalahan Database  " + e);
-    next(err_delete);
-  }
-});
-
+//Mendapatkan jawaban dari perusahaan dan tabel tertentu
 router.post("/getanswer", async (req, res, next) => {
   const tableName = req.body.tableName;
   const id_company = req.body.id_company;
 
   try {
     let jawaban = await knex(tableName)
-      .join("company", tableName+".id_company", "=", "company.id_company")
+      .join("company", tableName + ".id_company", "=", "company.id_company")
       .join(
         "variablepoint",
-        tableName+".id_variablepoint",
+        tableName + ".id_variablepoint",
         "=",
         "variablepoint.id_variablepoint"
       )
@@ -248,15 +210,15 @@ router.post("/getanswer", async (req, res, next) => {
         "parameter_question.id_parameter_question"
       )
       .select(
-        tableName+".id_company",
+        tableName + ".id_company",
         "company.nama_perusahaan",
         "parameter_question.parameter_question",
         "question.question",
         "variablepoint.variable",
-        tableName+".answer",
+        tableName + ".answer",
         "variablepoint.point"
       )
-      .where(tableName+".id_company", id_company);
+      .where(tableName + ".id_company", id_company);
     const parseData = data => {
       return [
         ...data
@@ -314,15 +276,16 @@ router.post("/getanswer", async (req, res, next) => {
   }
 });
 
+//Mendapatkan hasil perhitungan SPK weighted product yang telah dimodifikasi sesuai kebutuhan BAKTI
 router.post("/hasil_hitung", async (req, res, next) => {
   let tableName = req.body.tableName;
 
   try {
     let jawaban = await knex(tableName)
-      .join("company", tableName+".id_company", "=", "company.id_company")
+      .join("company", tableName + ".id_company", "=", "company.id_company")
       .join(
         "variablepoint",
-        tableName+".id_variablepoint",
+        tableName + ".id_variablepoint",
         "=",
         "variablepoint.id_variablepoint"
       )
@@ -339,12 +302,12 @@ router.post("/hasil_hitung", async (req, res, next) => {
         "parameter_question.id_parameter_question"
       )
       .select(
-        tableName+".id_company",
+        tableName + ".id_company",
         "company.nama_perusahaan",
         "parameter_question.parameter_question",
         "question.question",
         "variablepoint.variable",
-        tableName+".answer",
+        tableName + ".answer",
         "variablepoint.point"
       );
     const parseData = data => {
@@ -439,66 +402,66 @@ router.post("/hasil_hitung", async (req, res, next) => {
         } else if (j > 11 && j <= 23) {
           minat += allAnswer[i].point[j];
         } else if (j == 29) {
-          let persen = parseFloat(allAnswer[i].answer[29]); 
+          let persen = parseFloat(allAnswer[i].answer[29]);
           if (persen > 75) {
             financial += 5;
           } else if (persen > 50 && persen < 75) {
             financial += 3;
           } else if (persen.answer[29] > 25 && persen < 50) {
             financial += 2;
-          } else if(persen < 25){
-          financial += 1;
-        }
+          } else if (persen < 25) {
+            financial += 1;
+          }
         } else if (j > 23 && j <= 36) {
           financial += allAnswer[i].point[j];
-        } else if(j == 47){ 
+        } else if (j == 47) {
           let jumlah = parseFloat(allAnswer[i].answer[47]);
           let site = parseFloat(allAnswer[i].answer[23])
-          if(jumlah == site && jumlah > site){
-            pengalaman+= 4;
-          } else if(jumlah < site){
-            pengalaman+= 2;
+          if (jumlah == site && jumlah > site) {
+            pengalaman += 4;
+          } else if (jumlah < site) {
+            pengalaman += 2;
           }
         } else if (j > 37 && j <= 51) {
           pengalaman += allAnswer[i].point[j];
-        } else if(j == 52){
-            let grup = parseFloat(allAnswer[i].answer[23]) / parseFloat(allAnswer[i].answer[52])   
-            if(grup == 1){
-              team += 3;
-            } else if(grup > 0.5 && grup < 0.9){
-              team +=2;
-            } else if(grup < 0.5){
-              team +=1;
-            }
-        }else if(j == 52){
+        } else if (j == 52) {
+          let grup = parseFloat(allAnswer[i].answer[23]) / parseFloat(allAnswer[i].answer[52])
+          if (grup == 1) {
+            team += 3;
+          } else if (grup > 0.5 && grup < 0.9) {
+            team += 2;
+          } else if (grup < 0.5) {
+            team += 1;
+          }
+        } else if (j == 52) {
           let personil = parseFloat(allAnswer[i].answer[52]);
-          if(personil == 5 && personil > 5){
+          if (personil == 5 && personil > 5) {
             team += 3;
-          }else if(personil == 3 && personil == 4){
+          } else if (personil == 3 && personil == 4) {
             team += 2;
-          }else if(personil < 3){
+          } else if (personil < 3) {
             team += 1;
           }
-        } else if(j == 58){
+        } else if (j == 58) {
           let mobilisasi = parseFloat(allAnswer[i].answer[58]);
-          if(mobilisasi == 1 && mobilisasi < 8){
+          if (mobilisasi == 1 && mobilisasi < 8) {
             team += 3;
-          }else if(mobilisasi == 8 && mobilisasi < 14){
+          } else if (mobilisasi == 8 && mobilisasi < 14) {
             team += 2;
-          }else if(mobilisasi > 14){
+          } else if (mobilisasi > 14) {
             team += 1;
           }
-        } else if(j == 59){
+        } else if (j == 59) {
           let ramp_up = parseFloat(allAnswer[i].answer[59]);
-          if(ramp_up == 1 && ramp_up < 8){
+          if (ramp_up == 1 && ramp_up < 8) {
             team += 3;
-          }else if(ramp_up == 8 && ramp_up < 14){
+          } else if (ramp_up == 8 && ramp_up < 14) {
             team += 2;
-          }else if(ramp_up > 14){
+          } else if (ramp_up > 14) {
             team += 1;
           }
         }
-         else if (j > 51 && j <= 59) {
+        else if (j > 51 && j <= 59) {
           team += allAnswer[i].point[j];
         } else if (j > 59 && j <= 71) {
           stock += allAnswer[i].point[j];
@@ -568,16 +531,17 @@ router.post("/hasil_hitung", async (req, res, next) => {
   }
 });
 
+//Mengambil semua hasil input perusahaan sesuai dengan tablenya
 router.post("/get_profile", async (req, res, next) => {
   let tableName = req.body.tableName;
   let insert_database = req.body.insert_database;
 
   try {
     let jawaban = await knex(tableName)
-      .join("company", tableName+".id_company", "=", "company.id_company")
+      .join("company", tableName + ".id_company", "=", "company.id_company")
       .join(
         "variablepoint",
-        tableName+".id_variablepoint",
+        tableName + ".id_variablepoint",
         "=",
         "variablepoint.id_variablepoint"
       )
@@ -594,12 +558,12 @@ router.post("/get_profile", async (req, res, next) => {
         "parameter_question.id_parameter_question"
       )
       .select(
-        tableName+".id_company",
+        tableName + ".id_company",
         "company.nama_perusahaan",
         "parameter_question.parameter_question",
         "question.question",
         "variablepoint.variable",
-        tableName+".answer",
+        tableName + ".answer",
         "variablepoint.point"
       );
     const parseData = data => {
@@ -654,7 +618,7 @@ router.post("/get_profile", async (req, res, next) => {
     let param = await knex.select().from("parameter_question");
     let kunci = [];
     let weight = [];
-  
+
     param.forEach(data => kunci.push(data.parameter_question));
     param.forEach(data => weight.push(data.bobot));
 
@@ -664,7 +628,7 @@ router.post("/get_profile", async (req, res, next) => {
     }
 
     let id = [];
-    for (let i = 0; i < allAnswer.length; i++){
+    for (let i = 0; i < allAnswer.length; i++) {
       id.push(allAnswer[i].id_company)
     }
 
@@ -693,66 +657,66 @@ router.post("/get_profile", async (req, res, next) => {
         } else if (j > 12 && j <= 29) {
           minat += allAnswer[i].point[j];
         } else if (j == 29) {
-          let persen = parseFloat(allAnswer[i].answer[29]); 
+          let persen = parseFloat(allAnswer[i].answer[29]);
           if (persen > 75) {
             financial += 5;
           } else if (persen > 50 && persen < 75) {
             financial += 3;
           } else if (persen.answer[29] > 25 && persen < 50) {
             financial += 2;
-          } else if(persen < 25){
-          financial += 1;
-        }
+          } else if (persen < 25) {
+            financial += 1;
+          }
         } else if (j > 23 && j <= 36) {
           financial += allAnswer[i].point[j];
-        } else if(j == 47){ 
+        } else if (j == 47) {
           let jumlah = parseFloat(allAnswer[i].answer[47]);
           let site = parseFloat(allAnswer[i].answer[23])
-          if(jumlah == site && jumlah > site){
-            pengalaman+= 4;
-          } else if(jumlah < site){
-            pengalaman+= 2;
+          if (jumlah == site && jumlah > site) {
+            pengalaman += 4;
+          } else if (jumlah < site) {
+            pengalaman += 2;
           }
         } else if (j > 37 && j <= 51) {
           pengalaman += allAnswer[i].point[j];
-        } else if(j == 52){
-            let grup = parseFloat(allAnswer[i].answer[23]) / parseFloat(allAnswer[i].answer[52])   
-            if(grup == 1){
-              team += 3;
-            } else if(grup > 0.5 && grup < 0.9){
-              team +=2;
-            } else if(grup < 0.5){
-              team +=1;
-            }
-        }else if(j == 52){
+        } else if (j == 52) {
+          let grup = parseFloat(allAnswer[i].answer[23]) / parseFloat(allAnswer[i].answer[52])
+          if (grup == 1) {
+            team += 3;
+          } else if (grup > 0.5 && grup < 0.9) {
+            team += 2;
+          } else if (grup < 0.5) {
+            team += 1;
+          }
+        } else if (j == 52) {
           let personil = parseFloat(allAnswer[i].answer[52]);
-          if(personil == 5 && personil > 5){
+          if (personil == 5 && personil > 5) {
             team += 3;
-          }else if(personil == 3 && personil == 4){
+          } else if (personil == 3 && personil == 4) {
             team += 2;
-          }else if(personil < 3){
+          } else if (personil < 3) {
             team += 1;
           }
-        } else if(j == 58){
+        } else if (j == 58) {
           let mobilisasi = parseFloat(allAnswer[i].answer[58]);
-          if(mobilisasi == 1 && mobilisasi < 8){
+          if (mobilisasi == 1 && mobilisasi < 8) {
             team += 3;
-          }else if(mobilisasi == 8 && mobilisasi < 14){
+          } else if (mobilisasi == 8 && mobilisasi < 14) {
             team += 2;
-          }else if(mobilisasi > 14){
+          } else if (mobilisasi > 14) {
             team += 1;
           }
-        } else if(j == 59){
+        } else if (j == 59) {
           let ramp_up = parseFloat(allAnswer[i].answer[59]);
-          if(ramp_up == 1 && ramp_up < 8){
+          if (ramp_up == 1 && ramp_up < 8) {
             team += 3;
-          }else if(ramp_up == 8 && ramp_up < 14){
+          } else if (ramp_up == 8 && ramp_up < 14) {
             team += 2;
-          }else if(ramp_up > 14){
+          } else if (ramp_up > 14) {
             team += 1;
           }
         }
-         else if (j > 51 && j <= 59) {
+        else if (j > 51 && j <= 59) {
           team += allAnswer[i].point[j];
         } else if (j > 59 && j <= 71) {
           stock += allAnswer[i].point[j];
@@ -817,11 +781,11 @@ router.post("/get_profile", async (req, res, next) => {
     let hasil_akhir = hasil(counter_fin.kriteria, counter_fin.alternatif);
 
     var byValue = hasil_akhir.slice(0);
-    byValue.sort(function(a,b) {
+    byValue.sort(function (a, b) {
       return b.value - a.value;
     });
 
-// console.log("ByValue: "+byValue)
+    // console.log("ByValue: "+byValue)
 
     res.json({
       "hasil": byValue
