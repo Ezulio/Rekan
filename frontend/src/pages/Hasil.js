@@ -14,13 +14,12 @@ export default function Hasil() {
                 let data = await Axios.post('http://localhost:5000/lelang/get_profile', { tableName: table.data });
                 setDataSource(data.data.hasil);
             }
-            catch{
-                alert("Silahkan Pilih Lelang Terlebih Dahulu!")
-                window.location.replace('/')
+            catch(e){
+                alert("Silahkan Pilih Lelang Terlebih Dahulu!");
             }
         }
         getData();
-    }, [])
+    }, []);
 
 
 
@@ -28,13 +27,12 @@ export default function Hasil() {
     async function handleDelete(id) {
         try {
             let deleteData = await Axios.post('http://localhost:5000/lelang/deleteData', { tableName: table.data, id: id });
-            alert("Data berhasil dihapus, laman akan dimuat ulang")
-            window.location.replace('/')
+            alert("Data berhasil dihapus, Silahkan muat ulang halaman (Ctrl + R)");
         }
         catch (e) {
-            alert("Terjadi Error pada saat akan menghapus silahkan periksa kembali lelang atau coba muat ulang laman")
+            alert("Terjadi Error pada saat akan menghapus silahkan periksa kembali lelang atau coba muat ulang laman");
         }
-    };
+    }
 
     const columns = [
         {

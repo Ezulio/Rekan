@@ -14,15 +14,15 @@ export default function Perusahaan(props) {
         async function getData() {
             try {
 
-                let data = await Axios.get('http://localhost:5000/lelang/getcompany')
+                let data = await Axios.get('http://localhost:5000/lelang/getcompany');
                 setAllCompany(data.data.list_company);
             }
             catch (e) {
-                alert("Terjadi Error, silahkan periksa kembali koneksi internet anda atau muat ulang laman")
+                alert("Terjadi Error, silahkan periksa kembali koneksi internet anda atau muat ulang laman");
             }
         }
         getData();
-    }, [])
+    }, []);
 
     const menu = (
         <Menu>

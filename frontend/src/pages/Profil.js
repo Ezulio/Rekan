@@ -8,7 +8,7 @@ export default function Profil() {
     let [question, setQuestion] = useState([]);
     let [answer, setAnswer] = useState([]);
 
-    let table = useContext(tableContext)
+    let table = useContext(tableContext);
     const company = useContext(CompanyContext);
 
     useEffect(() => {
@@ -16,32 +16,31 @@ export default function Profil() {
             try {
                 let data = await Axios.post('http://localhost:5000/lelang/getanswer', { tableName: table.data, id_company: company.perusahaan.id });
                 for (var i = 0; i < data.data.jawaban[0].question.length; i++) {
-                    setQuestion(data.data.jawaban[0].question)
-                    setAnswer(data.data.jawaban[0].answer)
+                    setQuestion(data.data.jawaban[0].question);
+                    setAnswer(data.data.jawaban[0].answer);
                 }
             }
             catch (e) {
-                alert("Silahkan Pilih Lelang dan Perusahaan atau Inputkan data perusahaan!")
-                window.location.replace('/')
+                alert("Silahkan Pilih Lelang dan Perusahaan atau Inputkan data perusahaan!");
             }
         }
         getData();
-    }, [])
+    }, []);
 
     function renderSoal() {
-        let questionArray = []
-        let answerArray = []
-        let questionAnswerArray = []
+        let questionArray = [];
+        let answerArray = [];
+        let questionAnswerArray = [];
 
         for (let i = 0; i < question.length; i++) {
-            questionArray.push({ question: question[i] })
-            answerArray.push({ answer: answer[i] })
+            questionArray.push({ question: question[i] });
+            answerArray.push({ answer: answer[i] });
         }
 
         const zip = (arr, ...arrs) => {
             return arr.map((val, i) => arrs.reduce((a, arr) => [...a, arr[i]], [val]));
-        }
-        questionAnswerArray = zip(questionArray, answerArray)
+        };
+        questionAnswerArray = zip(questionArray, answerArray);
 
         return questionAnswerArray.map(item => renderHtml(item));
     }

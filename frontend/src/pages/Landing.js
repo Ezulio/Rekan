@@ -20,7 +20,7 @@ export default function Landing(props) {
 
         }
         getData();
-    }, [])
+    }, []);
 
 
     const menu = (

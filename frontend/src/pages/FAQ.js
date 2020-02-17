@@ -101,7 +101,7 @@ export default function FAQ() {
                     <p>Step 3 : Tekan Ok pada popup konfirmasi</p>
                     <img src={step_3D} style={{ width: "550px", height: "400px" }}></img>
                 </Panel>
-                <Panel header="Troubleshoot: Saya ingin memuat ulang laman?" key="6">
+                <Panel header="Troubleshoot: Bagaimana cara saya memuat ulang laman?" key="6">
                     <ul>
                         <li>
                             <p>Apabila anda ingin memuat ulang, silahkan tekan Ctrl + R </p>
@@ -115,6 +115,11 @@ export default function FAQ() {
                     dengan melihat judul di atas page <strong>(Kotak Merah)</strong>. Apabila setelah memilih lelang atau perusahaan masih
                     terdapat error, mohon cek jaringan internat anda.</p>
                             <img src={Error} style={{ width: "550px", height: "300px" }}></img>
+                        </li>
+                        <li>
+                            <p>Ketika laman tidak menampilkan apapun (laman hanya berwarna putih), di mohon untuk memuat ulang laman. Apabila
+                            setelah di muat ulang laman masih tidak manampilkan apapun, disarankan untuk mematikan dan menyalakan kembali
+                            aplikasi ini</p>
                         </li>
                         <li>
                             <p>Apabila Setelah cara di atas masih terdapat Error, silahkan kirim Email ke yankahandra18@gmail.com</p>

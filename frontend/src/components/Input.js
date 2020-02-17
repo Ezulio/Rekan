@@ -19,23 +19,22 @@ export default function CustomInput(props) {
     useEffect( ()=>{
         async function getCompany(){
             try{
-                let data = await Axios.get('http://localhost:5000/lelang/getcompany')
+                let data = await Axios.get('http://localhost:5000/lelang/getcompany');
                 setCompany(data.data.list_company);
             }
             catch(e){
-                alert("error " + e)
+                alert("error " + e);
             }
         }
         getCompany();
-    },[])
+    },[]);
   
 
     useEffect(() => {
         setRadioInput(props.data);
     }, []);
 
-   
-        // console.log(keterangan);
+
     return (
         <div>
             <p style={{ fontWeight: "bold" }}>{radioInput.question}</p>

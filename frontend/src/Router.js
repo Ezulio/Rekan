@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {    
     BrowserRouter,
+    HashRouter,
     Switch,
     Route,
 } from "react-router-dom";
@@ -23,7 +24,7 @@ export default function Router() {
     return (
         <UserProvider value = {{data}} >
         <CompanyProvider value = {{perusahaan}} >
-        <BrowserRouter>
+        <HashRouter>
             <Navbar />
             <div>
             <Switch >
@@ -40,7 +41,7 @@ export default function Router() {
                 <Route component={Error} />
             </Switch>
             </div>
-        </BrowserRouter>
+        </HashRouter>
         </CompanyProvider>
         </UserProvider>
     )

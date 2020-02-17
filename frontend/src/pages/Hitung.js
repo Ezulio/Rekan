@@ -37,11 +37,10 @@ export default function Hitung() {
                 setAllCompany(data.data.list_company);
             }
             catch (e) {
-                alert("error " + e)
             }
         }
         getCompany();
-    }, [])
+    }, []);
 
     function RenderQuestion() {
         if (soal.length != 0) {
@@ -50,9 +49,6 @@ export default function Hitung() {
 
                     case "radio":
                         return (<CustomInput data={data} onAnswer={answer => {
-
-
-
                             if (jawaban.length != 0) {
                                 for (let i = 0; i < jawaban.length; i++) {
                                     if (jawaban[i].id_variablepoint === answer.id_variablepoint) {
@@ -63,13 +59,13 @@ export default function Hitung() {
                                         continue;
                                     }
                                     else {
-                                        setJawaban([...jawaban, answer])
+                                        setJawaban([...jawaban, answer]);
                                     }
                                 }
                             }
                             else {
                                 console.log('add');
-                                setJawaban([...jawaban, answer])
+                                setJawaban([...jawaban, answer]);
                             }
 
                         }} />)
