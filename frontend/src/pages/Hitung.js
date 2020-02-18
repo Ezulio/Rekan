@@ -51,7 +51,7 @@ export default function Hitung() {
                         return (<CustomInput data={data} onAnswer={answer => {
                             if (jawaban.length != 0) {
                                 for (let i = 0; i < jawaban.length; i++) {
-                                    if (jawaban[i].id_variablepoint === answer.id_variablepoint) {
+                                    if (jawaban[i].id_question === answer.id_question) {
                                         jawaban[i].answer = answer.answer;
                                         break;
                                     }
@@ -59,12 +59,17 @@ export default function Hitung() {
                                         continue;
                                     }
                                     else {
+                                        for(let i =0;i<jawaban.length;i++){
+                                    delete jawaban[i].id_question;
+                                    }
                                         setJawaban([...jawaban, answer]);
                                     }
                                 }
                             }
                             else {
-                                console.log('add');
+                                for(let i =0;i<jawaban.length;i++){
+                                    delete jawaban[i].id_question;
+                                }
                                 setJawaban([...jawaban, answer]);
                             }
 
@@ -86,7 +91,6 @@ export default function Hitung() {
                                 }
                             }
                             else {
-                                console.log('add');
                                 setJawaban([...jawaban, answer])
                             }
 
@@ -99,18 +103,19 @@ export default function Hitung() {
             return (<h2 style={{ textAlign: "center" }}>Loading....</h2>)
         }
     }
-
     async function submit(e) {
         setLoading(true);
         e.preventDefault();
         try {
-
+            for(let i =0;i<jawaban.length;i++){
+                delete jawaban[i].id_question;
+                }
             var stringify = JSON.stringify({ jawaban });
             var ans = JSON.parse(stringify)
             const token = await Axios.post('http://localhost:5000/lelang/insert_answer', { jawaban, tableName: user.data });
             await console.log(typeof (jawaban));
             await console.log("tipe parsing: " + typeof (parsing));
-            window.location.replace('/')
+            // window.location.replace('/')
             console.log(token)
 
         }
@@ -119,7 +124,7 @@ export default function Hitung() {
         }
         setLoading(false);
     }
-
+console.log(jawaban)
     return (
         <div>
             <h1 style={{ textAlign: 'center' }}>Lelang {user.data}</h1>
