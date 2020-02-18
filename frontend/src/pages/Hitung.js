@@ -108,8 +108,8 @@ export default function Hitung() {
         e.preventDefault();
         try {
             for(let i =0;i<jawaban.length;i++){
-                delete jawaban[76].id_question;
-                }
+                delete jawaban[i].id_question;
+            }
             var stringify = JSON.stringify({ jawaban });
             var ans = JSON.parse(stringify)
             const token = await Axios.post('http://localhost:5000/lelang/insert_answer', { jawaban, tableName: user.data });

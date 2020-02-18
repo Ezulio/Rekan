@@ -634,14 +634,14 @@ router.post("/get_profile", async (req, res, next) => {
 
     /*=======> SUM ANSWER POINT PER PARAMETER <=======*/
     let alternatif = [];
-    let administrasi = 0;
-    let minat = 0;
-    let financial = 0;
-    let pengalaman = 0;
-    let team = 0;
-    let stock = 0;
-    let peralatan = 0;
     for (let i = 0; i < allAnswer.length; i++) {
+      let administrasi = 0;
+      let minat = 0;
+      let financial = 0;
+      let pengalaman = 0;
+      let team = 0;
+      let stock = 0;
+      let peralatan = 0;
       for (let j = 0; j < allAnswer[i].point.length; j++) {
         if (j == 0 && j < 12) {
           administrasi += allAnswer[i].point[j];
