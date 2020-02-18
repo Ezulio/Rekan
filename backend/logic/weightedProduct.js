@@ -101,7 +101,7 @@ function countVectorVi2(countSumVectorSi, countTotalVectorSi) {
         maksvi = Math.max(...hasilVi);
     }
     for (let i = 0; i < countSumVectorSi.length; i++) {
-        adjustedvi = hasilVi[i] / maksvi * 100;
+        adjustedvi = hasilVi[i] /* maksvi * 100;*/
         if (adjustedvi >= 60) {
             keterangan = "Diundang";
             status = "Lulus";

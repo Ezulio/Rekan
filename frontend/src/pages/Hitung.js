@@ -108,14 +108,13 @@ export default function Hitung() {
         e.preventDefault();
         try {
             for(let i =0;i<jawaban.length;i++){
-                delete jawaban[i].id_question;
+                delete jawaban[76].id_question;
                 }
             var stringify = JSON.stringify({ jawaban });
             var ans = JSON.parse(stringify)
             const token = await Axios.post('http://localhost:5000/lelang/insert_answer', { jawaban, tableName: user.data });
             await console.log(typeof (jawaban));
             await console.log("tipe parsing: " + typeof (parsing));
-            // window.location.replace('/')
             console.log(token)
 
         }
@@ -127,7 +126,7 @@ export default function Hitung() {
 console.log(jawaban)
     return (
         <div>
-            <h1 style={{ textAlign: 'center' }}>Lelang {user.data}</h1>
+            <h1 style={{ textAlign: 'center' }}>{user.data}</h1>
             <h1 style={{ textAlign: 'center' }}>Input Penilaian {company.perusahaan.nama}</h1>
             <div style={{ padding: '30px' }}>
                 <Form onSubmit={(e) => submit(e)}>

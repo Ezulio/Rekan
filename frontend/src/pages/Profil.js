@@ -63,8 +63,8 @@ export default function Profil() {
 
     return (
         <div>
-            <h1 style={{ textAlign: "center" }}>Tabel {table.data} </h1>
-            <h1 style={{ textAlign: "center" }}>Profile {company.perusahaan.nama} </h1>
+            <h1 style={{ textAlign: "center" }}>{table.data} </h1>
+            <h1 style={{ textAlign: "center" }}>Rekanan {company.perusahaan.nama} </h1>
             <Form style={{ padding: '20px' }}>
                 {renderSoal()}
             </Form>

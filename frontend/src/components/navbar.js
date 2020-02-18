@@ -11,12 +11,12 @@ export default function Navbar() {
     return (
         <div style={{ display: 'flex' }}>
             <ul style={{ flex: 1 }} className="navbar">
-                <li className="button"><h4><Link to='/'>Rekan</Link></h4></li>
-                <li className="button"><Link to='/Perusahaan'>Perusahaan</Link></li>
-                <li className="button"><Link to='/Profil'>Profile</Link></li>
-                <li className="button"><Link to='/Hitung'>Input</Link></li>
-                <li className="button"><Link to='/Hasil'>Hasil</Link></li>
-                <li className="button"><Link to='/FAQ'>FAQ</Link></li>
+                <li className="button"><h4><Link to='/' style={{color:"white"}}>Rekan</Link></h4></li>
+                <li className="button"><Link to='/Perusahaan' style={{color:"white"}}>Perusahaan</Link></li>
+                <li className="button"><Link to='/Profil' style={{color:"white"}}>Profile</Link></li>
+                <li className="button"><Link to='/Hitung' style={{color:"white"}}>Input</Link></li>
+                <li className="button"><Link to='/Hasil' style={{color:"white"}}>Hasil</Link></li>
+                <li className="button"><Link to='/FAQ' style={{color:"white"}}>FAQ</Link></li>
             </ul>
 
             <ul style={{ justifyContent: 'flex-end' }} className="navbar">

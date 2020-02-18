@@ -57,7 +57,7 @@ export default function Landing(props) {
 
     return (
         <div style={{ textAlign: "center", marginTop: '15%' }}>
-            <h1 style={{ textAlign: "center" }}>Welcome to Rekan BTS</h1>
+            <h1 style={{ textAlign: "center" }}>Selamat Datang di Rekan BTS</h1>
             <div style={{ textAlign: "center" }}>
                 {/* Select Table */}
                 <Dropdown overlay={menu} trigger={['click']}>
@@ -69,7 +69,7 @@ export default function Landing(props) {
                 <br />
                 {/* Create New Table */}
                 <form style={{ textAlign: "center" }} onSubmit={(e) => submit(e)}>
-                    <Input placeholder="Nama Database" style={{ width: '20%', textAlign: "center" }}
+                    <Input placeholder="Input Lelang Baru" style={{ width: '20%', textAlign: "center" }}
                         type="text" id="tableName" onInput={(e) => getTable(e)} required></Input>
                     <br />
                     <br />

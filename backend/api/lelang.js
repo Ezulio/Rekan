@@ -523,7 +523,7 @@ router.post("/hasil_hitung", async (req, res, next) => {
     let hasil_akhir = hitung(counter_fin.kriteria, counter_fin.alternatif);
 
     res.json({
-      pemenang: hasil_akhir
+      pemenang: counter_fin
     });
   } catch (e) {
     const error = new Error("Kesahalan Perhitungan: " + e);

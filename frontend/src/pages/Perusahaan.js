@@ -64,7 +64,7 @@ export default function Perusahaan(props) {
 
     return (
         <div style={{ textAlign: "center", marginTop: '15%' }}>
-            <h1>Perusahaan</h1>
+            <h1>Kandidat Rekanan</h1>
             <div style={{ textAlign: "center" }}>
                 <Dropdown overlay={menu} trigger={['click']}>
                     <a className="ant-dropdown-link" href="#">
@@ -74,7 +74,7 @@ export default function Perusahaan(props) {
                 <br />
                 <br />
                 <form style={{ textAlign: "center" }} onSubmit={(e) => submit(e)}>
-                    <Input placeholder="Nama Perusahaan" style={{ width: '20%', textAlign: "center" }}
+                    <Input placeholder="Input Rekanan Baru" style={{ width: '20%', textAlign: "center" }}
                         type="text" id="companyName" onInput={(e) => getCompany(e)} required></Input>
                     <br />
                     <br />

@@ -56,6 +56,7 @@ export default function CustomInput(props) {
 
                         }
                         let answer={
+                            id_question : radioInput.id_question,
                             id_company : tes.perusahaan.id,
                             id_variablepoint: varId,
                             answer: data.target.value,
