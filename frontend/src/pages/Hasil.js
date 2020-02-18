@@ -61,7 +61,7 @@ export default function Hasil() {
             key: 'keterangan',
         },
         {
-            title: 'operation',
+            title: 'Aksi',
             dataIndex: 'operation',
             render: (text, dataIndex) => {
                 return (

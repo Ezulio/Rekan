@@ -19,12 +19,12 @@ export default function Navbar() {
                 <li className="button"><Link to='/FAQ' style={{color:"white"}}>FAQ</Link></li>
             </ul>
 
-            <ul style={{ justifyContent: 'flex-end' }} className="navbar">
+            {/* <ul style={{ justifyContent: 'flex-end' }} className="navbar">
                 <div>
                     <li className="button"><Link onClick={() => close()} style={{color:"white"}}>Exit</Link></li>
                 </div>
 
-            </ul>
+            </ul> */}
         </div>
     )
 }

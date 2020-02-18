@@ -52,8 +52,8 @@ export default function Profil() {
                     <div>
                         <Form.Item>
                             <h3 style={{ textDecoration: "bold" }}>{item[j].question}</h3>
-                            <Input style={{ width: '20%', textDecoration: "bold", color: "Black" }}
-                                value={item[i].answer} disabled></Input>
+                            <Input.TextArea style={{ width: '40%', textDecoration: "bold", color: "Black" }}
+                                value={item[i].answer} disabled></Input.TextArea>
                         </Form.Item>
                     </div>
                 )

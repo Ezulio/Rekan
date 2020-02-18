@@ -34,7 +34,7 @@ export default function InputOnly(props) {
         <div>
             <p style={{ fontWeight: "bold" }}>{inputOnly.question}</p>
             <Form.Item required={true}>
-                <Input style={{ width: '20%' }}
+                <Input.TextArea style={{ width: '40%' }}
                     id={inputOnly.id_variablepoint}
                     value={temp}
                     onChange={data => {
@@ -58,7 +58,7 @@ export default function InputOnly(props) {
 
                     }}
                 >
-                </Input>
+                </Input.TextArea>
                 <br />
             </Form.Item>
         </div>
