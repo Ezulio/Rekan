@@ -7,7 +7,7 @@
   "build": {
     "appId": "com.electron.Rekan",
     "win": {
-      "icon": "./public/podium.png"
+      "icon": "./public/tower.png"
   },
     "files": [
       "build/**/*",

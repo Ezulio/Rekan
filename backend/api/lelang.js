@@ -643,10 +643,19 @@ router.post("/get_profile", async (req, res, next) => {
       let stock = 0;
       let peralatan = 0;
       for (let j = 0; j < allAnswer[i].point.length; j++) {
-        if (j == 0 && j < 12) {
+
+        if(j == 6 && allAnswer[i].answer[j] == "disertakan"){
+          administrasi += 1;
+        } else if(j == 6 && allAnswer[i].answer[j] == "ada"){
+          administrasi+=0.5;
+        } else if(j == 6 && allAnswer[i].answer[j] == "tidak_ada"){
+          administrasi+=0;
+        }
+
+        if (j < 12) {
           administrasi += allAnswer[i].point[j];
-        } else if (j == 23) {
-          let jumlah_site = parseFloat(allAnswer[i].answer[47]) / parseFloat(allAnswer[i].answer[23]);
+        } else if (j == 22) {
+          let jumlah_site = parseFloat(allAnswer[i].answer[47]) / parseFloat(allAnswer[i].answer[22]);
           if (jumlah_site == 1 && jumlah_site > 1) {
             minat += 5;
           } else if (0.5 < jumlah_site && 0.9 < jumlah_site) {
@@ -654,33 +663,34 @@ router.post("/get_profile", async (req, res, next) => {
           } else if (0.5 > jumlah_site) {
             minat += 0;
           }
-        } else if (j > 12 && j <= 29) {
+        } else if (j >= 12 && j <= 22) {
           minat += allAnswer[i].point[j];
-        } else if (j == 29) {
-          let persen = parseFloat(allAnswer[i].answer[29]);
+        } else if (j == 28) {
+          let persen = parseFloat(allAnswer[i].answer[28]);
           if (persen > 75) {
             financial += 5;
           } else if (persen > 50 && persen < 75) {
             financial += 3;
-          } else if (persen.answer[29] > 25 && persen < 50) {
+          } else if (persen > 25 && persen < 50) {
             financial += 2;
           } else if (persen < 25) {
             financial += 1;
           }
-        } else if (j > 23 && j <= 36) {
+        } else if (j >= 23 && j <= 34) {
           financial += allAnswer[i].point[j];
-        } else if (j == 47) {
-          let jumlah = parseFloat(allAnswer[i].answer[47]);
-          let site = parseFloat(allAnswer[i].answer[23])
+        } 
+          else if (j == 47) {
+            let jumlah = parseFloat(allAnswer[i].answer[47]);
+            let site = parseFloat(allAnswer[i].answer[22])
           if (jumlah == site && jumlah > site) {
             pengalaman += 4;
           } else if (jumlah < site) {
             pengalaman += 2;
           }
-        } else if (j > 37 && j <= 51) {
+        } else if (j >= 35 && j <= 51) {
           pengalaman += allAnswer[i].point[j];
         } else if (j == 52) {
-          let grup = parseFloat(allAnswer[i].answer[23]) / parseFloat(allAnswer[i].answer[52])
+          let grup = parseFloat(allAnswer[i].answer[22]) / parseFloat(allAnswer[i].answer[52])
           if (grup == 1) {
             team += 3;
           } else if (grup > 0.5 && grup < 0.9) {
@@ -688,8 +698,8 @@ router.post("/get_profile", async (req, res, next) => {
           } else if (grup < 0.5) {
             team += 1;
           }
-        } else if (j == 52) {
-          let personil = parseFloat(allAnswer[i].answer[52]);
+        } else if (j == 53) {
+          let personil = parseFloat(allAnswer[i].answer[53]);
           if (personil == 5 && personil > 5) {
             team += 3;
           } else if (personil == 3 && personil == 4) {
