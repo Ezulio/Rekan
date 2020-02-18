@@ -68,7 +68,7 @@ export default function Perusahaan(props) {
             <div style={{ textAlign: "center" }}>
                 <Dropdown overlay={menu} trigger={['click']}>
                     <a className="ant-dropdown-link" href="#">
-                        Pilih Perusahaan <Icon type="down" />
+                        Pilih Rekanan <Icon type="down" />
                     </a>
                 </Dropdown>
                 <br />
