@@ -28,12 +28,12 @@ export default function FAQ() {
                     aplikasi ini dapat bekerja</p>
                         </li>
                         <li>
-                            <p>Aplikasi ini sudah berada di versi stabil, namun karena keterbatasan kemampuan dan waktu
+                            <p>Aplikasi ini sudah berada di versi stabil namun karena keterbatasan kemampuan dan waktu,
                             masih banyak fitur - fitur yang harus ditambahkan kedepannya. Mohon pengertian terhadap kekurangannya</p>
                         </li>
                         <li>
-                            <p>Dalam aplikasi ini perlu banyak untuk memilih lelang dan aplikasi, dan setiap terjadi refresh / muat ulang
-                            page dimohon untuk memilih ulang lelang dan aplikasi</p>
+                            <p>Dalam aplikasi ini perlu banyak untuk memilih lelang dan perusahaan, dan setiap terjadi refresh / muat ulang
+                            page dimohon untuk memilih ulang lelang dan perusahaan</p>
                         </li>
                         <li>
                             <p>Apabila ingin melakukan perubahan dalam hasil suatu perusahaan, silahkan hapus hasil perusahaan tersebut dan
@@ -44,32 +44,32 @@ export default function FAQ() {
                 <Panel header="Notification: Pemberitahuan Seputar Input" key="2">
                     <ul>
                         <li>
-                            <p>Dalam Page Input, ketika menginput data isian disarankan untuk memperhatikan pertanyaan yang akan dijawab dalam bentuk
-                    angka dan menjawab hanya dalam bentuk angka saja.</p>
-                            <img src={Angka}></img>
+                            <p>Dalam Page Input, ketika menginput data isian disarankan untuk memperhatikan pertanyaan yang akan dijawab. Apabila pertanyaan diberi
+                             petunjuk untuk menjawab dalam bentuk angka, silahkan menjawab hanya dalam bentuk angka saja.</p>
+                            <img src={Angka} alt="Angka"></img>
                         </li>
                         <li>
-                            <p>Dalam Page Input, ketika menginput data isian disarankan untuk memperhatikan pertanyaan yang akan dijawab dalam bentuk
-                    nominal dan menjawab hanya dalam bentuk angka saja</p>
-                            <img src={Nominal}></img>
+                            <p>Dalam Page Input, ketika menginput data isian disarankan untuk memperhatikan pertanyaan yang akan dijawab.Apabila pertanyaan diberi
+                             petunjuk untuk menjawab dalam bentuk dalam bentuk nominal, silahkan menjawab hanya dalam bentuk nominal saja</p>
+                            <img src={Nominal} alt="Nominal"></img>
                         </li>
                         <li>
-                            <p>Dalam Page Input, ketika menginput data isian disarankan untuk tidak mengisi dalam bentuk range (jarak)</p>
-                            <img src={Range}></img>
+                            <p>Dalam Page Input, ketika menginput data isian dimohon untuk tidak mengisi dalam bentuk range (jarak)</p>
+                            <img src={Range} alt="Range"></img>
                         </li>
                         <li>
-                            <p>Dalam Page Input, ketika menginput data isian yang memiliki pilihan disarankan untuk memilih salah satu saja</p>
-                            <img src={Choose}></img>
+                            <p>Dalam Page Input, ketika menginput data isian yang memiliki pilihan dimohon untuk memilih salah satu saja</p>
+                            <img src={Choose} alt="Choose"></img>
                         </li>
                         <li>
                             <p>Dalam Page Input, ketika menginput data isian yang memiliki input angka. Apabila pihak perusahaan mengatakan
                             tidak ada, disarankan untuk mengisi dengan "0" (nol)</p>
-                            <img src={NoInput_Angka}></img>
+                            <img src={NoInput_Angka} alt="NoInput_Angka"></img>
                         </li>
                         <li>
                             <p>Dalam Page Input, ketika menginput data isian keterangan, Apabila tidak terdapat keterangan dari pihak perusahaan,
                             disarankan untuk mengisi dengan "-"</p>
-                            <img src={NoInput_Ket}></img>
+                            <img src={NoInput_Ket} alt="NoInput_Ket"></img>
                         </li>
                     </ul>
                 </Panel>
@@ -83,28 +83,28 @@ export default function FAQ() {
                 </Panel>
                 <Panel header="Tutorial: Tata Cara Penggunaan Dasar" key="4">
                     <p>Step 1 : Pilih Tab Rekan lalu Pilih lelang atau buat lelang baru</p>
-                    <img src={step_1} style={{ width: "550px", height: "400px" }}></img>
+                    <img src={step_1} style={{ width: "550px", height: "400px" }} alt="step_1"></img>
                     <p>Step 2 : Pilih Tab Perusahaan lalu pilih perusahaan atau buat perusahaan baru</p>
-                    <img src={step_2} style={{ width: "550px", height: "400px" }}></img>
+                    <img src={step_2} style={{ width: "550px", height: "400px" }} alt="step_2"></img>
                     <p>Step 3 : Pilih Tab Input lalu inputkan data, dan tekan submit untuk mengirim data</p>
-                    <img src={step_3} style={{ width: "550px", height: "400px" }}></img>
+                    <img src={step_3} style={{ width: "550px", height: "400px" }} alt="step_3"></img>
                     <p>Step 4 : Ulangi Step 1 dan 2 kemudian pilih Tab Profil Untuk Melihat jawaban perusahaan</p>
-                    <img src={step_4} style={{ width: "550px", height: "400px" }}></img>
+                    <img src={step_4} style={{ width: "550px", height: "400px" }} alt="step_4"></img>
                     <p>Step 5 : Pilih Tab Hasil untuk melihat hasil nilai, status dan keterangan</p>
-                    <img src={step_5} style={{ width: "550px", height: "400px" }}></img>
+                    <img src={step_5} style={{ width: "550px", height: "400px" }} alt="step_5"></img>
                 </Panel>
                 <Panel header="Tutorial: Tata Cara Menghapus Data Penilaian" key="5">
                     <p>Step 1 : Pilih Tab Rekan lalu Pilih lelang</p>
-                    <img src={step_1} style={{ width: "550px", height: "400px" }}></img>
+                    <img src={step_1} style={{ width: "550px", height: "400px" }} alt="step_1"></img>
                     <p>Step 2 : Tekan Delete pada tabel</p>
-                    <img src={step_5} style={{ width: "550px", height: "400px" }}></img>
+                    <img src={step_5} style={{ width: "550px", height: "400px" }} alt="step_5"></img>
                     <p>Step 3 : Tekan Ok pada popup konfirmasi</p>
-                    <img src={step_3D} style={{ width: "550px", height: "400px" }}></img>
+                    <img src={step_3D} style={{ width: "550px", height: "400px" }} alt="step_3D"></img>
                 </Panel>
                 <Panel header="Troubleshoot: Bagaimana cara saya memuat ulang laman?" key="6">
                     <ul>
                         <li>
-                            <p>Apabila anda ingin memuat ulang, silahkan tekan Ctrl + R </p>
+                            <p>Apabila anda ingin memuat ulang laman, silahkan tekan Ctrl + R </p>
                         </li>
                     </ul>
                 </Panel>
@@ -114,7 +114,7 @@ export default function FAQ() {
                             <p>Ketika terjadi Error ataupun data tidak muncul, mohon untuk mengecek kembali apakah sudah memilih lelang atau perusahaan
                     dengan melihat judul di atas page <strong>(Kotak Merah)</strong>. Apabila setelah memilih lelang atau perusahaan masih
                     terdapat error, mohon cek jaringan internat anda.</p>
-                            <img src={Error} style={{ width: "550px", height: "300px" }}></img>
+                            <img src={Error} style={{ width: "550px", height: "300px" }} alt="Error"></img>
                         </li>
                         <li>
                             <p>Ketika laman tidak menampilkan apapun (laman hanya berwarna putih), di mohon untuk memuat ulang laman. Apabila

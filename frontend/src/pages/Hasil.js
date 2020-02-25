@@ -11,7 +11,8 @@ export default function Hasil() {
     useEffect(() => {
         async function getData() {
             try {
-                let data = await Axios.post('http://localhost:5000/lelang/get_profile', { tableName: table.data });
+                let data = await Axios.post('http://182.16.240.50:8081/rfi/get_profile', { tableName: table.data });
+                console.log()
                 setDataSource(data.data.hasil);
             }
             catch(e){
@@ -26,7 +27,7 @@ export default function Hasil() {
 
     async function handleDelete(id) {
         try {
-            let deleteData = await Axios.post('http://localhost:5000/lelang/deleteData', { tableName: table.data, id: id });
+            let deleteData = await Axios.post('http://182.16.240.50:8081/rfi/deleteData', { tableName: table.data, id: id });
             alert("Data berhasil dihapus, Silahkan muat ulang halaman (Ctrl + R)");
         }
         catch (e) {

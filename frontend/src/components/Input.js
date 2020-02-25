@@ -8,18 +8,14 @@ import CompanyContext from '../util/CompanyContext';
 
 export default function CustomInput(props) {
     let [radioInput, setRadioInput] = useState({});
-    let [chooseInput, setChooseInput] = useState();
     let [temp, setTemp] = useState('');
-    let [keterangan, setKet] = useState('');
-    let [ID,setID] = useState('');
     let[company, setCompany] = useState({});
     const tes = useContext(CompanyContext);
 
-    // const company = useContext(CompanyContext);
     useEffect( ()=>{
         async function getCompany(){
             try{
-                let data = await Axios.get('http://localhost:5000/lelang/getcompany');
+                let data = await Axios.get('http://182.16.240.50:8081/rfi/getcompany');
                 setCompany(data.data.list_company);
             }
             catch(e){
@@ -61,17 +57,7 @@ export default function CustomInput(props) {
                             id_variablepoint: varId,
                             answer: data.target.value,
                         }
-                            // setID(varId)
-                            // setKet(data.target.value);
-                        
-
-                        // const varId = getVariableId(data.target.value)   
-                        // setTemp(data.target.value);
                         props.onAnswer(answer)
-                        console.log(answer)
-                        
-                        
-                        // setAnswer(answer);
                     }}
                    
                 >

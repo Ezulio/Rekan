@@ -11,7 +11,7 @@ export default function Landing(props) {
     useEffect(() => {
         async function getData() {
             try {
-                let data = await Axios.get('http://localhost:5000/lelang/getDb');
+                let data = await Axios.get('http://182.16.240.50:8081/rfi/getDb');
                 setAllTable(data.data.db[0]);
             }
             catch (e) {
@@ -45,7 +45,7 @@ export default function Landing(props) {
         setLoading(true);
         e.preventDefault();
         try {
-            const token = await Axios.post('http://localhost:5000/lelang/newtable', tableName);
+            const token = await Axios.post('http://182.16.240.50:8081/rfi/newtable', tableName);
             localStorage.setItem('token', token.data.token);
             window.location.replace('/')
         }

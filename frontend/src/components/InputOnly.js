@@ -7,7 +7,6 @@ import CompanyContext from '../util/CompanyContext';
 export default function InputOnly(props) {
     let [inputOnly, setInputOnly] = useState({});
     let [temp, setTemp] = useState('');
-    let [answer, setAnswer] = useState({});
     let [company, setCompany] = useState({});
     const tes = useContext(CompanyContext);
 
@@ -16,7 +15,7 @@ export default function InputOnly(props) {
     useEffect(() => {
         async function getCompany() {
             try {
-                let data = await Axios.get('http://localhost:5000/lelang/getcompany');
+                let data = await Axios.get('http://182.16.240.50:8081/rfi/getcompany');
                 setCompany(data.data.list_company);
             }
             catch (e) {
@@ -53,8 +52,6 @@ export default function InputOnly(props) {
                             answer: data.target.value
                         }
                         props.onAnswer(answer);
-                        // setAnswer(answer);
-                        console.log(tes.perusahaan)
 
                     }}
                 >
