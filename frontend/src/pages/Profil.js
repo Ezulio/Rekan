@@ -14,7 +14,7 @@ export default function Profil() {
     useEffect(() => {
         async function getData() {
             try {
-                let data = await Axios.post('http://182.16.240.50:8081/rfi/getanswer', { tableName: table.data, id_company: company.perusahaan.id });
+                let data = await Axios.post('http://182.16.240.50:8081/lelang/getanswer', { tableName: table.data, id_company: company.perusahaan.id });
                 for (var i = 0; i < data.data.jawaban[0].question.length; i++) {
                     setQuestion(data.data.jawaban[0].question);
                     setAnswer(data.data.jawaban[0].answer);

@@ -1,0 +1,21 @@
+directories:
+  output: dist
+  buildResources: assets
+files:
+  - filter:
+      - build/**/*
+      - build/**/*
+      - node_modules/**/*
+      - ./public/electron.js
+      - package.json
+  - from: src
+    to: build
+    filter:
+      - '**/*'
+extraMetadata:
+  main: build/electron.js
+appId: com.electron.Rekan
+win:
+  icon: ./public/tower.png
+extends: react-cra
+electronVersion: 7.1.7
