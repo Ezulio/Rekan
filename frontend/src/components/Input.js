@@ -15,7 +15,7 @@ export default function CustomInput(props) {
     useEffect( ()=>{
         async function getCompany(){
             try{
-                let data = await Axios.get('http://182.16.240.50:8081/lelang/getcompany');
+                let data = await Axios.get('http://182.16.240.50:8081/rfi/getcompany');
                 setCompany(data.data.list_company);
             }
             catch(e){

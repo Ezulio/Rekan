@@ -58,7 +58,7 @@ export default function Summary() {
 
         async function getData() {
             try {
-                let data = await Axios.post('http://182.16.240.50:8081/lelang/get_profile', { tableName: table.data });
+                let data = await Axios.post('http://182.16.240.50:8081/rfi/get_profile', { tableName: table.data });
                 for (let i = 0; i < data.data.hasil.length; i++) {
                     if (data.data.hasil[i] !== Empty) {
                         if (data.data.hasil[i].id === company.perusahaan.id) {
@@ -80,7 +80,7 @@ export default function Summary() {
 
         async function setSummary(){
             try{    
-                let summary = await Axios.post('http://182.16.240.50:8081/lelang/get_executive_summary', { tableName: table.data, id_company: company.perusahaan.id });
+                let summary = await Axios.post('http://182.16.240.50:8081/rfi/get_executive_summary', { tableName: table.data, id_company: company.perusahaan.id });
                 setSummary(summary)
                 //administrasi
                 setNIB(summary.data.answer.administrasi[0].answer);

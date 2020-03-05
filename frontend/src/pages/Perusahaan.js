@@ -14,7 +14,7 @@ export default function Perusahaan(props) {
         async function getData() {
             try {
 
-                let data = await Axios.get('http://182.16.240.50:8081/lelang/getcompany');
+                let data = await Axios.get('http://182.16.240.50:8081/rfi/getcompany');
                 setAllCompany(data.data.list_company);
             }
             catch (e) {
@@ -52,7 +52,7 @@ export default function Perusahaan(props) {
         setLoading(true);
         e.preventDefault();
         try {
-            const token = await Axios.post('http://182.16.240.50:8081/lelang/insert_company', company);
+            const token = await Axios.post('http://182.16.240.50:8081/rfi/insert_company', company);
             localStorage.setItem('token', token.data.token);
             window.location.replace('/')
         }

@@ -20,7 +20,7 @@ export default function Hitung() {
     useEffect(() => {
         async function getData() {
             try {
-                let data = await Axios.get('http://182.16.240.50:8081/lelang/getquestion');
+                let data = await Axios.get('http://182.16.240.50:8081/rfi/getquestion');
                 setSoal(data.data.pertanyaan);
             }
             catch (e) {
@@ -33,7 +33,7 @@ export default function Hitung() {
     useEffect(() => {
         async function getCompany() {
             try {
-                let data = await Axios.get('http://182.16.240.50:8081/lelang/getcompany')
+                let data = await Axios.get('http://182.16.240.50:8081/rfi/getcompany')
                 setAllCompany(data.data.list_company);
             }
             catch (e) {
@@ -109,7 +109,7 @@ export default function Hitung() {
             for(let i =0;i<jawaban.length;i++){
                 delete jawaban[i].id_question;
             }
-            const token = await Axios.post('http://182.16.240.50:8081/lelang/insert_answer', { jawaban, tableName: user.data });
+            const token = await Axios.post('http://182.16.240.50:8081/rfi/insert_answer', { jawaban, tableName: user.data });
 
         }
         catch (e) {
